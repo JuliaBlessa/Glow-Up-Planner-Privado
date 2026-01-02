@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Glow Up Planner - Privado</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #fff1f5, #fde2e4);
+      color: #4a2c3a;
+    }
+
+    header {
+      background: #ff8fab;
+      padding: 25px;
+      text-align: center;
+      color: white;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.8em;
+    }
+
+    .container {
+      padding: 25px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #ff5d8f;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Glow Up Planner ✨</h1>
+    <p>Seu planner privado para organização, hábitos e mentalidade</p>
+  </header>
+
+  <div class="container">
+
+    <!-- Planner Diário -->
+    <div class="card">
+      <h2>📅 Planner Diário</h2>
+      <label>Meu foco principal hoje</label>
+      <input type="text" placeholder="Ex: estudar, treino, autocuidado">
+
+      <label>Tarefas do dia</label>
+      <input type="text" placeholder="Tarefa 1">
+      <input type="text" placeholder="Tarefa 2">
+      <input type="text" placeholder="Tarefa 3">
+
+      <label>Autocuidado</label>
+      <input type="text" placeholder="Ex: Skincare, água, descanso">
+      
+      <label>Como estou me sentindo</label>
+      <input type="text" placeholder="Escreva aqui">
+    </div>
+
+    <!-- Planner Semanal -->
+    <div class="card">
+      <h2>🗓 Planner Semanal</h2>
+      <label>Segunda-feira</label>
+      <input type="text" placeholder="Ex: estudar, treino, autocuidado">
+      <label>Terça-feira</label>
+      <input type="text" placeholder="Ex: estudar, treino, autocuidado">
+      <label>Quarta-feira</label>
+      <input type="text" placeholder="Ex: estudar, treino, autocuidado">
+      <label>Quinta-feira</label>
+      <input type="text" placeholder="Ex: estudar, treino, autocuidado">
+      <label>Sexta-feira</label>
+      <input type="text" placeholder="Ex: estudar, treino, autocuidado">
+      <label>Sábado</label>
+      <input type="text" placeholder="Ex: lazer, autocuidado">
+      <label>Domingo</label>
+      <input type="text" placeholder="Ex: descanso, planejamento semana">
+    </div>
+
+    <!-- Hábitos e Metas -->
+    <div class="card">
+      <h2>✅ Hábitos & Metas</h2>
+      <label>Hábitos diários</label>
+      <textarea placeholder="Ex: beber água, meditar, estudar"></textarea>
+      
+      <label>Metas do mês</label>
+      <textarea placeholder="Ex: aprender algo novo, glow up físico"></textarea>
+      
+      <label>Metas da semana</label>
+      <textarea placeholder="Ex: concluir estudo, treinar 3x"></textarea>
+    </div>
+
+    <!-- Mentalidade / Glow Up -->
+    <div class="card">
+      <h2>🧠 Mentalidade & Glow Up</h2>
+      <label>Gratidão do dia</label>
+      <textarea placeholder="Ex: agradeço por..."></textarea>
+      
+      <label>Aprendizado do dia</label>
+      <textarea placeholder="Ex: aprendi que..."></textarea>
+      
+      <label>Reflexão</label>
+      <textarea placeholder="Ex: pensei sobre..."></textarea>
+    </div>
+
+  </div>
+
+</body>
+</html>
