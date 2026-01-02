@@ -2,19 +2,19 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Glow Up Planner - Clean</title>
+<title>Glow Up Planner - Rosa Clean</title>
 <style>
   body {
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background: #f8f5f0;
-    color: #222;
+    background: #f8f5f0; /* bege clarinho */
+    color: #222; /* texto preto escuro */
   }
   header {
-    background: #222;
+    background: #e7549f; /* rosa escuro */
     padding: 20px;
     text-align: center;
-    color: #f8f5f0;
+    color: #fff;
   }
   h1 { margin:0; font-size:2em; }
   .container {
@@ -31,17 +31,17 @@
   }
   .month-btn {
     padding: 8px 12px;
-    background: #444;
+    background: #e7549f; /* rosa */
     color: white;
     border: none;
     border-radius: 12px;
     cursor: pointer;
   }
-  .month-btn.active { background:#666; }
+  .month-btn.active { background:#ff5d9d; } /* rosa mais claro */
   .month-content { display:none; }
   .month-content.active { display:block; }
   .card {
-    background: #fff;
+    background: #fff; /* branco */
     border-radius: 15px;
     padding: 15px;
     margin-bottom: 15px;
@@ -68,8 +68,8 @@
     cursor:pointer; 
     margin-right:10px;
   }
-  #deleteDayBtn { background:#ff5d5d; }
-  #deleteAllBtn { background:#444; }
+  #deleteDayBtn { background:#ff5d5d; } /* vermelho-rosado */
+  #deleteAllBtn { background:#e7549f; } /* rosa escuro */
 </style>
 </head>
 <body>
@@ -217,7 +217,7 @@ function addHabit(month){
   container.insertBefore(textarea, container.querySelector(".add-btn"));
 }
 
-// DELETE DIA (só os blocos diários)
+// DELETE DIA (só os blocos do dia)
 document.getElementById("deleteDayBtn").addEventListener("click", function(){
   const selectors = [
     "#planner-container textarea.daily",
