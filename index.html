@@ -249,6 +249,49 @@ function addHabit(month){
   container.insertBefore(textarea, container.querySelector(".add-btn"));
 }
 </script>
+  // 1️⃣ Salvar automaticamente todos os textareas
+function salvarPlanner() {
+  const textareas = document.querySelectorAll("textarea");
+  textareas.forEach((ta, index) => {
+    // Salvando cada textarea pelo seu índice + mês ativo
+    const month = document.querySelector(".month-btn.active").dataset.month;
+    localStorage.setItem(month + "_textarea_" + index, ta.value);
+  });
+}
+
+// 2️⃣ Carregar textos ao abrir a página
+function carregarPlanner() {
+  const textareas = document.querySelectorAll("textarea");
+  const month = document.querySelector(".month-btn.active").dataset.month;
+  textareas.forEach((ta, index) => {
+    const valor = localStorage.getItem(month + "_textarea_" + index);
+    if(valor) ta.value = valor;
+  });
+}
+
+// 3️⃣ Atualizar ao digitar
+document.querySelectorAll("textarea").forEach(ta => {
+  ta.addEventListener("input", salvarPlanner);
+});
+
+// 4️⃣ Atualizar ao mudar de mês
+document.querySelectorAll(".month-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    // Salva antes de trocar
+    salvarPlanner();
+    // Remove e adiciona active
+    document.querySelectorAll(".month-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll(".month-content").forEach(m => m.classList.remove("active"));
+    document.getElementById(btn.dataset.month).classList.add("active");
+    // Carrega os textos do mês novo
+    carregarPlanner();
+  });
+});
+
+// 5️⃣ Carregar textos do mês inicial ao abrir a página
+window.onload = carregarPlanner;
+
 
 </body>
 </html>
