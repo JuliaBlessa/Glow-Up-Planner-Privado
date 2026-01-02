@@ -204,6 +204,53 @@ function createMonthContent(month){
   <!-- Mentalidade & Glow Up -->
   <div class="card">
     <h2>🧠 Mentalidade & Glow Up</h2>
-    <label>Gratidão</label><
+    <label>Gratidão</label><textarea class="small-textarea" placeholder="Escreva algo pelo qual você é grata(o)"></textarea>
+    <label>Aprendizado</label><textarea class="small-textarea" placeholder="Escreva algo que aprendeu hoje"></textarea>
+    <label>Reflexão</label><textarea placeholder="Escreva sua reflexão do dia"></textarea>
+  </div>
+
+  <!-- Notas / Diário -->
+  <div class="card">
+    <h2>📝 Notas / Diário</h2>
+    <textarea placeholder="Espaço livre para escrever tudo o que quiser" style="min-height:200px;"></textarea>
+  </div>
+  `;
+
+  plannerContainer.appendChild(div);
+}
+
+// Criar meses
+months.forEach(createMonthContent);
+
+// Navegação meses
+document.querySelectorAll(".month-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".month-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll(".month-content").forEach(m=>m.classList.remove("active"));
+    document.getElementById(btn.dataset.month).classList.add("active");
+  });
+});
+document.getElementById("janeiro").classList.add("active");
+
+// Funções para adicionar mais exercícios e hábitos
+function addWorkout(month){
+  const container=document.getElementById(month).querySelector("div.card:nth-child(4)");
+  const textarea=document.createElement("textarea");
+  textarea.className="small-textarea";
+  textarea.placeholder="Escreva outro exercício";
+  container.insertBefore(textarea, container.querySelector(".add-btn"));
+}
+
+function addHabit(month){
+  const container=document.getElementById(month).querySelector("div.card:nth-child(7)");
+  const textarea=document.createElement("textarea");
+  textarea.placeholder="Descreva outro hábito que você criou";
+  container.insertBefore(textarea, container.querySelector(".add-btn"));
+}
+</script>
+
+</body>
+</html>
 
 
