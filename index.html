@@ -2,135 +2,130 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Glow Up Planner - Full Deluxe</title>
+<title>Glow Up Planner - Organizado</title>
 <style>
-  body {margin:0; font-family:'Arial', sans-serif; background:linear-gradient(135deg,#fff1f5,#fde2e4); color:#4a2c3a;}
-  header {background:#ff8fab; padding:25px; text-align:center; color:white;}
-  h1 {margin:0; font-size:2.8em;}
-  .container {max-width:1000px; margin:auto; padding:20px;}
-  .months {display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:25px;}
-  .month-btn {padding:10px 15px; background:#ff5d8f; color:white; border:none; border-radius:15px; cursor:pointer; font-weight:bold;}
-  .month-btn.active {background:#ff8fab;}
-  .month-content {display:none;}
-  .month-content.active {display:block;}
-  .card {background:white; border-radius:20px; padding:20px; margin-bottom:20px; box-shadow:0 10px 25px rgba(0,0,0,0.1);}
-  h2 {margin-top:0; color:#ff5d8f;}
-  label {font-weight:bold; display:block; margin-top:15px; margin-bottom:5px;}
-  input[type="text"], textarea {width:100%; padding:10px; border-radius:10px; border:1px solid #ddd; margin-bottom:10px; box-sizing:border-box;}
-  textarea {resize:vertical; min-height:60px;}
-  .checklist label {display:flex; align-items:center; cursor:pointer;}
-  .checklist input[type="checkbox"] {margin-right:10px; transform:scale(1.3);}
-  .add-btn {margin-top:10px; padding:8px 12px; border-radius:10px; border:none; background:#ff8fab; color:white; cursor:pointer;}
-  .progress-bar {background:#eee; border-radius:10px; height:15px; margin-top:5px;}
-  .progress {height:100%; background:#ff5d8f; border-radius:10px 0 0 10px; width:0%;}
+body {margin:0; font-family:'Arial', sans-serif; background:linear-gradient(135deg,#fff1f5,#fde2e4); color:#4a2c3a;}
+header {background:#ff8fab; padding:25px; text-align:center; color:white;}
+h1 {margin:0; font-size:2.5em;}
+.container {max-width:1000px; margin:auto; padding:20px;}
+.months {display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:25px;}
+.month-btn {padding:10px 15px; background:#ff5d8f; color:white; border:none; border-radius:15px; cursor:pointer; font-weight:bold;}
+.month-btn.active {background:#ff8fab;}
+.month-content {display:none;}
+.month-content.active {display:block;}
+.card {background:white; border-radius:20px; padding:20px; margin-bottom:20px; box-shadow:0 10px 25px rgba(0,0,0,0.1);}
+h2 {margin-top:0; color:#ff5d8f;}
+.checklist label {display:flex; align-items:center; cursor:pointer; margin-bottom:5px;}
+.checklist input[type="checkbox"] {margin-right:10px; transform:scale(1.2);}
+.add-btn {margin-top:10px; padding:8px 12px; border-radius:10px; border:none; background:#ff8fab; color:white; cursor:pointer;}
+.progress-bar {background:#eee; border-radius:10px; height:15px; margin-top:5px;}
+.progress {height:100%; background:#ff5d8f; border-radius:10px 0 0 10px; width:0%;}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Glow Up Planner ✨</h1>
-  <p>Planner Full Deluxe - Diário, Semanal, Rotina, Treino, Sono, Alimentação e Estudos</p>
+<h1>Glow Up Planner ✨</h1>
+<p>Planner Organizado - Diário, Semanal, Rotina, Treino, Sono, Alimentação e Estudos</p>
 </header>
 
 <div class="container">
-  <div class="months">
-    <button class="month-btn active" data-month="janeiro">Janeiro</button>
-    <button class="month-btn" data-month="fevereiro">Fevereiro</button>
-    <button class="month-btn" data-month="marco">Março</button>
-    <button class="month-btn" data-month="abril">Abril</button>
-    <button class="month-btn" data-month="maio">Maio</button>
-    <button class="month-btn" data-month="junho">Junho</button>
-    <button class="month-btn" data-month="julho">Julho</button>
-    <button class="month-btn" data-month="agosto">Agosto</button>
-    <button class="month-btn" data-month="setembro">Setembro</button>
-    <button class="month-btn" data-month="outubro">Outubro</button>
-    <button class="month-btn" data-month="novembro">Novembro</button>
-    <button class="month-btn" data-month="dezembro">Dezembro</button>
-  </div>
+<div class="months">
+  <button class="month-btn active" data-month="janeiro">Janeiro</button>
+  <button class="month-btn" data-month="fevereiro">Fevereiro</button>
+  <button class="month-btn" data-month="marco">Março</button>
+  <button class="month-btn" data-month="abril">Abril</button>
+  <button class="month-btn" data-month="maio">Maio</button>
+  <button class="month-btn" data-month="junho">Junho</button>
+  <button class="month-btn" data-month="julho">Julho</button>
+  <button class="month-btn" data-month="agosto">Agosto</button>
+  <button class="month-btn" data-month="setembro">Setembro</button>
+  <button class="month-btn" data-month="outubro">Outubro</button>
+  <button class="month-btn" data-month="novembro">Novembro</button>
+  <button class="month-btn" data-month="dezembro">Dezembro</button>
+</div>
 
-  <div id="planner-container"></div>
+<div id="planner-container"></div>
 </div>
 
 <script>
-const months = ["janeiro","fevereiro","marco","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
-const plannerContainer = document.getElementById("planner-container");
+const months=["janeiro","fevereiro","marco","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+const plannerContainer=document.getElementById("planner-container");
 
-// Cria o conteúdo de cada mês
+const weeklyTasks=["Estudos","Treino","Skincare","Tarefas Glow Up"];
+const workoutList=["Agachamento","Flexão","Abdominal","Corrida"];
+const sleepOptions=["Muito bem","Bem","Normal","Mal"];
+const mealOptions=["Fruta","Proteína","Salada","Carboidrato","Lanche leve"];
+
 function createMonthContent(month){
-  const div = document.createElement("div");
-  div.className = "month-content";
-  div.id = month;
+  const div=document.createElement("div");
+  div.className="month-content"; div.id=month;
 
-  div.innerHTML = `
+  div.innerHTML=`
+
   <!-- Planner Diário -->
   <div class="card">
     <h2>📅 Planner Diário - ${month.charAt(0).toUpperCase()+month.slice(1)}</h2>
-    <label>Manhã</label><input type="text" placeholder="Ex: Estudo, treino, skincare">
-    <label>Tarde</label><input type="text" placeholder="Ex: Lanche saudável, estudo extra">
-    <label>Noite</label><input type="text" placeholder="Ex: Revisão, relaxamento">
-    <label>Prioridades do dia</label><textarea placeholder="Ex: Concluir tarefa X"></textarea>
+    <div class="checklist">
+      ${["Manhã","Tarde","Noite"].map(period=>`<label><input type="checkbox"> ${period} completado</label>`).join("")}
+    </div>
   </div>
 
   <!-- Planejamento Semanal -->
   <div class="card">
-    <h2>🗓 Planejamento Semanal - ${month.charAt(0).toUpperCase()+month.slice(1)}</h2>
-    ${["Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado","Domingo"].map(day=>`
-      <label>${day}</label><input type="text" placeholder="Tarefas e objetivos">
-    `).join("")}
+    <h2>🗓 Planejamento Semanal</h2>
+    ${weeklyTasks.map(task=>`<label><input type="checkbox"> ${task}</label>`).join("")}
   </div>
 
   <!-- Revisão Semanal -->
   <div class="card">
-    <h2>🔄 Revisão Semanal - ${month.charAt(0).toUpperCase()+month.slice(1)}</h2>
-    <label>O que deu certo</label><textarea></textarea>
-    <label>O que melhorar</label><textarea></textarea>
-    <label>Reflexão da semana</label><textarea></textarea>
+    <h2>🔄 Revisão Semanal</h2>
+    <div class="checklist">
+      <label><input type="checkbox"> O que deu certo</label>
+      <label><input type="checkbox"> O que melhorar</label>
+      <label><input type="checkbox"> Reflexão concluída</label>
+    </div>
   </div>
 
-  <!-- Rotina -->
+  <!-- Rotina Visual -->
   <div class="card">
-    <h2>⏰ Rotina - ${month.charAt(0).toUpperCase()+month.slice(1)}</h2>
-    <label>Manhã</label><input type="text" placeholder="Ex: Acordar, Skincare, Café">
-    <label>Tarde</label><input type="text" placeholder="Ex: Estudos, Almoço">
-    <label>Noite</label><input type="text" placeholder="Ex: Treino, Jantar, Relaxamento">
+    <h2>⏰ Rotina</h2>
+    <div class="checklist">
+      <label><input type="checkbox"> Manhã: Café + Skincare</label>
+      <label><input type="checkbox"> Tarde: Estudos + Lanche</label>
+      <label><input type="checkbox"> Noite: Treino + Relaxamento</label>
+    </div>
   </div>
 
   <!-- Treino -->
   <div class="card checklist">
-    <h2>🏋️ Treino - ${month.charAt(0).toUpperCase()+month.slice(1)}</h2>
+    <h2>🏋️ Treino</h2>
     <div id="${month}-workout"></div>
     <button class="add-btn" onclick="addWorkout('${month}')">+ Adicionar exercício</button>
     <div class="progress-bar"><div id="${month}-progress-workout" class="progress"></div></div>
   </div>
 
   <!-- Sono -->
-  <div class="card">
-    <h2>💤 Sono - ${month.charAt(0).toUpperCase()+month.slice(1)}</h2>
-    <label>Hora de dormir</label><input type="text">
-    <label>Hora de acordar</label><input type="text">
-    <label>Qualidade do sono</label><textarea></textarea>
+  <div class="card checklist">
+    <h2>💤 Sono</h2>
+    ${sleepOptions.map(opt=>`<label><input type="checkbox"> ${opt}</label>`).join("")}
   </div>
 
   <!-- Alimentação -->
-  <div class="card">
-    <h2>🥗 Alimentação - ${month.charAt(0).toUpperCase()+month.slice(1)}</h2>
-    <label>Café da manhã</label><input type="text">
-    <label>Almoço</label><input type="text">
-    <label>Lanches</label><input type="text">
-    <label>Jantar</label><input type="text">
+  <div class="card checklist">
+    <h2>🥗 Alimentação</h2>
+    ${mealOptions.map(meal=>`<label><input type="checkbox"> ${meal}</label>`).join("")}
   </div>
 
   <!-- Estudos -->
-  <div class="card">
-    <h2>📚 Estudos - ${month.charAt(0).toUpperCase()+month.slice(1)}</h2>
-    <label>Matérias / Tópicos</label><textarea></textarea>
-    <label>Tempo de estudo</label><input type="text">
-    <label>Notas importantes</label><textarea></textarea>
+  <div class="card checklist">
+    <h2>📚 Estudos</h2>
+    ${weeklyTasks.map(task=>`<label><input type="checkbox"> ${task}</label>`).join("")}
   </div>
 
   <!-- Hábitos -->
   <div class="card checklist">
-    <h2>✅ Hábitos - ${month.charAt(0).toUpperCase()+month.slice(1)}</h2>
+    <h2>✅ Hábitos</h2>
     <div id="${month}-habits"></div>
     <button class="add-btn" onclick="addHabit('${month}')">+ Adicionar hábito</button>
     <div class="progress-bar"><div id="${month}-progress" class="progress"></div></div>
@@ -138,7 +133,7 @@ function createMonthContent(month){
 
   <!-- Mentalidade & Glow Up -->
   <div class="card">
-    <h2>🧠 Mentalidade & Glow Up - ${month.charAt(0).toUpperCase()+month.slice(1)}</h2>
+    <h2>🧠 Mentalidade & Glow Up</h2>
     <label>Gratidão do dia</label><textarea></textarea>
     <label>Aprendizado do dia</label><textarea></textarea>
     <label>Reflexão</label><textarea></textarea>
@@ -146,17 +141,18 @@ function createMonthContent(month){
 
   <!-- Notas / Diário -->
   <div class="card">
-    <h2>📝 Notas / Diário - ${month.charAt(0).toUpperCase()+month.slice(1)}</h2>
+    <h2>📝 Notas / Diário</h2>
     <textarea placeholder="Espaço livre para escrever tudo que quiser"></textarea>
   </div>
   `;
+
   plannerContainer.appendChild(div);
 }
 
 // Criar meses
 months.forEach(createMonthContent);
 
-// Navegação meses
+// Navegação
 document.querySelectorAll(".month-btn").forEach(btn=>{
   btn.addEventListener("click",()=>{
     document.querySelectorAll(".month-btn").forEach(b=>b.classList.remove("active"));
@@ -167,49 +163,44 @@ document.querySelectorAll(".month-btn").forEach(btn=>{
 });
 document.getElementById("janeiro").classList.add("active");
 
-// Função adicionar hábito
+// Funções adicionar hábito/treino
 function addHabit(month){
-  const container = document.getElementById(`${month}-habits`);
-  const id = `${month}-habit-${container.children.length}`;
-  const div = document.createElement("div");
-  div.innerHTML = `<label><input type="checkbox" id="${id}" onclick="updateProgress('${month}')"> Novo hábito</label>`;
+  const container=document.getElementById(`${month}-habits`);
+  const id=`${month}-habit-${container.children.length}`;
+  const div=document.createElement("div");
+  div.innerHTML=`<label><input type="checkbox" id="${id}" onclick="updateProgress('${month}')"> Novo hábito</label>`;
   container.appendChild(div);
 }
 
-// Função adicionar treino
 function addWorkout(month){
-  const container = document.getElementById(`${month}-workout`);
-  const id = `${month}-workout-${container.children.length}`;
-  const div = document.createElement("div");
-  div.innerHTML = `<label><input type="checkbox" id="${id}" onclick="updateProgressWorkout('${month}')"> Novo exercício</label>`;
+  const container=document.getElementById(`${month}-workout`);
+  const id=`${month}-workout-${container.children.length}`;
+  const div=document.createElement("div");
+  div.innerHTML=`<label><input type="checkbox" id="${id}" onclick="updateProgressWorkout('${month}')"> Novo exercício</label>`;
   container.appendChild(div);
 }
 
-// Atualizar barra de progresso hábitos
+// Barras de progresso
 function updateProgress(month){
-  const container = document.getElementById(`${month}-habits`);
-  const checkboxes = container.querySelectorAll("input[type='checkbox']");
-  const total = checkboxes.length;
-  const checked = Array.from(checkboxes).filter(c=>c.checked).length;
-  const progress = document.getElementById(`${month}-progress`);
-  progress.style.width = total ? ((checked/total)*100)+'%' : '0%';
+  const container=document.getElementById(`${month}-habits`);
+  const checkboxes=container.querySelectorAll("input[type='checkbox']");
+  const total=checkboxes.length;
+  const checked=Array.from(checkboxes).filter(c=>c.checked).length;
+  const progress=document.getElementById(`${month}-progress`);
+  progress.style.width=total?((checked/total)*100)+'%':'0%';
 }
 
-// Atualizar barra de progresso treino
 function updateProgressWorkout(month){
-  const container = document.getElementById(`${month}-workout`);
-  const checkboxes = container.querySelectorAll("input[type='checkbox']");
-  const total = checkboxes.length;
-  const checked = Array.from(checkboxes).filter(c=>c.checked).length;
-  const progress = document.getElementById(`${month}-progress-workout`);
-  progress.style.width = total ? ((checked/total)*100)+'%' : '0%';
+  const container=document.getElementById(`${month}-workout`);
+  const checkboxes=container.querySelectorAll("input[type='checkbox']");
+  const total=checkboxes.length;
+  const checked=Array.from(checkboxes).filter(c=>c.checked).length;
+  const progress=document.getElementById(`${month}-progress-workout`);
+  progress.style.width=total?((checked/total)*100)+'%':'0%';
 }
 </script>
 
 </body>
 </html>
 
-
-
-
-
+    
