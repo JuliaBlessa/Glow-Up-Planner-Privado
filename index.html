@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Glow Up Planner - Organizado e Visual</title>
+<title>Glow Up Planner - Organizado e Salvo</title>
 <style>
   body {
     margin: 0;
@@ -88,25 +88,13 @@
     color: white;
     cursor: pointer;
   }
-  .progress-bar {
-    background: #eee;
-    border-radius: 10px;
-    height: 15px;
-    margin-top: 5px;
-  }
-  .progress {
-    height: 100%;
-    background: #ff5d8f;
-    border-radius: 10px 0 0 10px;
-    width: 0%;
-  }
 </style>
 </head>
 <body>
 
 <header>
   <h1>Glow Up Planner ✨</h1>
-  <p>Planner Organizado, Visual e Bonito - Diário, Semanal, Revisão, Treino, Sono, Alimentação, Hábitos, Mentalidade e Notas</p>
+  <p>Planner Digital Organizado e Visual - Diário, Semanal, Revisão, Treino, Hábitos, Mentalidade, Alimentação e Notas</p>
 </header>
 
 <div class="container">
@@ -129,8 +117,8 @@
 </div>
 
 <script>
+// ✅ Função para criar meses e blocos
 const months = ["janeiro","fevereiro","marco","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
-
 const plannerContainer = document.getElementById("planner-container");
 
 function createMonthContent(month){
@@ -175,25 +163,6 @@ function createMonthContent(month){
     <button class="add-btn" onclick="addWorkout('${month}')">+ Adicionar exercício</button>
   </div>
 
-  <!-- Sono -->
-  <div class="card">
-    <h2>💤 Sono</h2>
-    <label>Horário de dormir</label><textarea class="small-textarea" placeholder="Escreva o horário que dormiu"></textarea>
-    <label>Horário de acordar</label><textarea class="small-textarea" placeholder="Escreva o horário que acordou"></textarea>
-    <label>Observações</label><textarea placeholder="Escreva como foi a qualidade do sono"></textarea>
-  </div>
-
-  <!-- Alimentação -->
-  <div class="card">
-    <h2>🥗 Alimentação</h2>
-    <label>Café da manhã</label><textarea class="small-textarea" placeholder="O que você comeu no café da manhã"></textarea>
-    <label>Almoço</label><textarea class="small-textarea" placeholder="O que você comeu no almoço"></textarea>
-    <label>Lanches</label><textarea class="small-textarea" placeholder="O que você comeu nos lanches"></textarea>
-    <label>Jantar</label><textarea class="small-textarea" placeholder="O que você comeu no jantar"></textarea>
-    <label>Avaliação semanal</label><textarea placeholder="Avalie sua alimentação desta semana"></textarea>
-    <label>Avaliação mensal</label><textarea placeholder="Avalie sua alimentação do mês"></textarea>
-  </div>
-
   <!-- Hábitos -->
   <div class="card">
     <h2>✅ Hábitos</h2>
@@ -209,6 +178,17 @@ function createMonthContent(month){
     <label>Reflexão</label><textarea placeholder="Escreva sua reflexão do dia"></textarea>
   </div>
 
+  <!-- Alimentação -->
+  <div class="card">
+    <h2>🥗 Alimentação</h2>
+    <label>Café da manhã</label><textarea class="small-textarea" placeholder="O que você comeu no café da manhã"></textarea>
+    <label>Almoço</label><textarea class="small-textarea" placeholder="O que você comeu no almoço"></textarea>
+    <label>Lanches</label><textarea class="small-textarea" placeholder="O que você comeu nos lanches"></textarea>
+    <label>Jantar</label><textarea class="small-textarea" placeholder="O que você comeu no jantar"></textarea>
+    <label>Avaliação semanal</label><textarea placeholder="Avalie sua alimentação desta semana"></textarea>
+    <label>Avaliação mensal</label><textarea placeholder="Avalie sua alimentação do mês"></textarea>
+  </div>
+
   <!-- Notas / Diário -->
   <div class="card">
     <h2>📝 Notas / Diário</h2>
@@ -219,21 +199,9 @@ function createMonthContent(month){
   plannerContainer.appendChild(div);
 }
 
-// Criar meses
 months.forEach(createMonthContent);
 
-// Navegação meses
-document.querySelectorAll(".month-btn").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    document.querySelectorAll(".month-btn").forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");
-    document.querySelectorAll(".month-content").forEach(m=>m.classList.remove("active"));
-    document.getElementById(btn.dataset.month).classList.add("active");
-  });
-});
-document.getElementById("janeiro").classList.add("active");
-
-// Funções para adicionar mais exercícios e hábitos
+// ✅ Funções para adicionar exercícios e hábitos
 function addWorkout(month){
   const container=document.getElementById(month).querySelector("div.card:nth-child(4)");
   const textarea=document.createElement("textarea");
@@ -243,58 +211,54 @@ function addWorkout(month){
 }
 
 function addHabit(month){
-  const container=document.getElementById(month).querySelector("div.card:nth-child(7)");
+  const container=document.getElementById(month).querySelector("div.card:nth-child(5)");
   const textarea=document.createElement("textarea");
   textarea.placeholder="Descreva outro hábito que você criou";
   container.insertBefore(textarea, container.querySelector(".add-btn"));
 }
-</script>
 
+// ✅ Troca de meses
+document.querySelectorAll(".month-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    salvarPlanner();
+    document.querySelectorAll(".month-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll(".month-content").forEach(m=>m.classList.remove("active"));
+    document.getElementById(btn.dataset.month).classList.add("active");
+    carregarPlanner();
+  });
+});
+document.getElementById("janeiro").classList.add("active");
 
-</body>
-</html>
-  // 1️⃣ Salvar automaticamente todos os textareas
+// ✅ Funções para salvar e carregar automaticamente usando Local Storage
 function salvarPlanner() {
   const textareas = document.querySelectorAll("textarea");
-  textareas.forEach((ta, index) => {
-    // Salvando cada textarea pelo seu índice + mês ativo
-    const month = document.querySelector(".month-btn.active").dataset.month;
+  const month = document.querySelector(".month-btn.active").dataset.month;
+  textareas.forEach((ta, index)=>{
     localStorage.setItem(month + "_textarea_" + index, ta.value);
   });
 }
 
-// 2️⃣ Carregar textos ao abrir a página
 function carregarPlanner() {
   const textareas = document.querySelectorAll("textarea");
   const month = document.querySelector(".month-btn.active").dataset.month;
-  textareas.forEach((ta, index) => {
+  textareas.forEach((ta, index)=>{
     const valor = localStorage.getItem(month + "_textarea_" + index);
     if(valor) ta.value = valor;
   });
 }
 
-// 3️⃣ Atualizar ao digitar
-document.querySelectorAll("textarea").forEach(ta => {
-  ta.addEventListener("input", salvarPlanner);
-});
+// Atualizar ao digitar
+document.querySelectorAll("textarea").forEach(ta=>ta.addEventListener("input",salvarPlanner));
 
-// 4️⃣ Atualizar ao mudar de mês
-document.querySelectorAll(".month-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    // Salva antes de trocar
-    salvarPlanner();
-    // Remove e adiciona active
-    document.querySelectorAll(".month-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    document.querySelectorAll(".month-content").forEach(m => m.classList.remove("active"));
-    document.getElementById(btn.dataset.month).classList.add("active");
-    // Carrega os textos do mês novo
-    carregarPlanner();
-  });
-});
-
-// 5️⃣ Carregar textos do mês inicial ao abrir a página
+// Carregar ao abrir página
 window.onload = carregarPlanner;
+</script>
+
+</body>
+</html>
+
+
 
 
 
