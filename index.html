@@ -8,7 +8,7 @@
     margin: 0;
     font-family: 'Arial', sans-serif;
     background: #f8f5f0; /* bege clarinho */
-    color: #222; /* texto preto escuro */
+    color: #222;
   }
   header {
     background: #ffc0cb; /* rosa clarinho */
@@ -37,11 +37,11 @@
     border-radius: 12px;
     cursor: pointer;
   }
-  .month-btn.active { background:#ffd1dc; } /* rosa ainda mais clarinho */
+  .month-btn.active { background:#ffd1dc; } /* rosa mais clarinho */
   .month-content { display:none; }
   .month-content.active { display:block; }
   .card {
-    background: #fff; /* branco */
+    background: #fff;
     border-radius: 15px;
     padding: 15px;
     margin-bottom: 15px;
@@ -70,6 +70,15 @@
   }
   #deleteDayBtn { background:#ffa6b0; } /* rosa clarinho para deletar dia */
   #deleteAllBtn { background:#ffb6c1; } /* rosa clarinho para deletar tudo */
+  .add-btn {
+    padding:6px 12px;
+    border-radius:10px;
+    border:none;
+    background:#ffb6c1;
+    color:#222;
+    cursor:pointer;
+    margin-top:5px;
+  }
 </style>
 </head>
 <body>
@@ -110,6 +119,7 @@
 const months = ["janeiro","fevereiro","marco","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
 const plannerContainer = document.getElementById("planner-container");
 
+// Cria cada mês com todos os blocos
 function createMonthContent(month){
   const div = document.createElement("div");
   div.className="month-content";
@@ -118,6 +128,150 @@ function createMonthContent(month){
   div.innerHTML = `
   <!-- Planner Diário -->
   <div class="card">
+    <h2>📅 Planner Diário - ${month.charAt(0).toUpperCase()+month.slice(1)}</h2>
+    <label>Manhã</label><textarea class="daily"></textarea>
+    <label>Tarde</label><textarea class="daily"></textarea>
+    <label>Noite</label><textarea class="daily"></textarea>
+  </div>
+
+  <!-- Planejamento Semanal -->
+  <div class="card">
+    <h2>🗓 Planejamento Semanal</h2>
+    <label>Segunda-feira</label><textarea></textarea>
+    <label>Terça-feira</label><textarea></textarea>
+    <label>Quarta-feira</label><textarea></textarea>
+    <label>Quinta-feira</label><textarea></textarea>
+    <label>Sexta-feira</label><textarea></textarea>
+    <label>Sábado</label><textarea></textarea>
+    <label>Domingo</label><textarea></textarea>
+  </div>
+
+  <!-- Revisão Semanal -->
+  <div class="card">
+    <h2>🔄 Revisão Semanal</h2>
+    <label>O que deu certo</label><textarea></textarea>
+    <label>O que melhorar</label><textarea></textarea>
+    <label>Reflexão concluída</label><textarea></textarea>
+  </div>
+
+  <!-- Treino -->
+  <div class="card">
+    <h2>🏋️ Treino</h2>
+    <label>Exercício 1</label><textarea class="treino small-textarea"></textarea>
+    <label>Exercício 2</label><textarea class="treino small-textarea"></textarea>
+    <button class="add-btn" onclick="addWorkout('${month}')">+ Adicionar exercício</button>
+  </div>
+
+  <!-- Mentalidade & Glow Up -->
+  <div class="card">
+    <h2>🧠 Mentalidade & Glow Up</h2>
+    <label>Gratidão</label><textarea class="mentalidade small-textarea"></textarea>
+    <label>Aprendizado</label><textarea class="mentalidade small-textarea"></textarea>
+    <label>Reflexão</label><textarea class="mentalidade"></textarea>
+  </div>
+
+  <!-- Alimentação -->
+  <div class="card">
+    <h2>🥗 Alimentação</h2>
+    <label>Café da manhã</label><textarea class="alimentacao small-textarea"></textarea>
+    <label>Almoço</label><textarea class="alimentacao small-textarea"></textarea>
+    <label>Lanches</label><textarea class="alimentacao small-textarea"></textarea>
+    <label>Jantar</label><textarea class="alimentacao small-textarea"></textarea>
+    <label>Avaliação semanal</label><textarea class="alimentacao avaliacao small-textarea"></textarea>
+    <label>Avaliação mensal</label><textarea class="alimentacao avaliacao small-textarea"></textarea>
+  </div>
+
+  <!-- Hábitos -->
+  <div class="card">
+    <h2>✅ Hábitos</h2>
+    <label>Novo hábito</label><textarea></textarea>
+    <button class="add-btn" onclick="addHabit('${month}')">+ Adicionar hábito</button>
+  </div>
+
+  <!-- Notas / Diário -->
+  <div class="card">
+    <h2>📝 Notas / Diário</h2>
+    <textarea class="notas" style="min-height:150px;"></textarea>
+  </div>
+  `;
+  plannerContainer.appendChild(div);
+}
+
+// Criar todos os meses
+months.forEach(createMonthContent);
+
+// Navegação meses
+document.querySelectorAll(".month-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".month-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll(".month-content").forEach(m=>m.classList.remove("active"));
+    document.getElementById(btn.dataset.month).classList.add("active");
+  });
+});
+document.getElementById("janeiro").classList.add("active");
+
+// Adicionar exercício
+function addWorkout(month){
+  const container=document.getElementById(month).querySelector("div.card:nth-child(4)");
+  const textarea=document.createElement("textarea");
+  textarea.className="treino small-textarea";
+  textarea.placeholder="Escreva outro exercício";
+  container.insertBefore(textarea, container.querySelector(".add-btn"));
+}
+
+// Adicionar hábito
+function addHabit(month){
+  const container=document.getElementById(month).querySelector("div.card:nth-child(7)");
+  const textarea=document.createElement("textarea");
+  container.insertBefore(textarea, container.querySelector(".add-btn"));
+}
+
+// DELETE DIA (apaga só o dia)
+document.getElementById("deleteDayBtn").addEventListener("click", function(){
+  const selectors = [
+    "#planner-container textarea.daily",
+    "#planner-container textarea.mentalidade",
+    "#planner-container textarea.alimentacao:not(.avaliacao)",
+    "#planner-container textarea.notas",
+    "#planner-container textarea.treino"
+  ];
+  selectors.forEach(sel=>{
+    document.querySelectorAll(sel).forEach(f=>f.value="");
+  });
+  alert("Campos do dia apagados ✅");
+});
+
+// DELETE TUDO
+document.getElementById("deleteAllBtn").addEventListener("click", function(){
+  document.querySelectorAll("#planner-container textarea").forEach(f=>f.value="");
+  alert("Tudo apagado ✅");
+});
+
+// Reset diário automático
+function resetDailyPlanner() {
+  const today = new Date().toDateString();
+  const lastVisit = localStorage.getItem('lastVisit');
+  if(lastVisit!==today){
+    const selectors = [
+      "#planner-container textarea.daily",
+      "#planner-container textarea.mentalidade",
+      "#planner-container textarea.alimentacao:not(.avaliacao)",
+      "#planner-container textarea.notas",
+      "#planner-container textarea.treino"
+    ];
+    selectors.forEach(sel=>{
+      document.querySelectorAll(sel).forEach(f=>f.value="");
+    });
+    localStorage.setItem('lastVisit', today);
+  }
+}
+window.addEventListener('load', resetDailyPlanner);
+</script>
+
+</body>
+</html>
+
 
 
 
