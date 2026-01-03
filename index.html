@@ -8,31 +8,25 @@
   body {
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background: #f8f5f0; /* bege clarinho */
+    background: #f8f5f0;
     color: #222;
     transition: background 0.3s, color 0.3s;
   }
   header {
-    background: linear-gradient(90deg, #ffb6c1, #ffd1dc); /* degradê rosa pastel */
+    background: linear-gradient(90deg, #ffb6c1, #ffd1dc);
     padding: 20px;
     text-align: center;
     color: #fff;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   }
   h1 { margin:0; font-size:2em; }
-  .container { max-width: 900px; margin: auto; padding: 20px; }
+  .container { max-width: 900px; margin:auto; padding:20px; }
 
   /* ===== Meses ===== */
-  .months {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
+  .months { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:20px; }
   .month-btn {
     padding: 8px 12px;
-    background: #c3f0ca; /* verde pastel */
+    background: #c3f0ca;
     color: #222;
     border: none;
     border-radius: 12px;
@@ -45,24 +39,24 @@
 
   /* ===== Cards ===== */
   .card {
-    background: #fff;
-    border-radius: 15px;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    background:#fff;
+    border-radius:15px;
+    padding:15px;
+    margin-bottom:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
     transition: transform 0.3s;
   }
-  .card:hover { transform: translateY(-3px);}
+  .card:hover { transform:translateY(-3px);}
   h2 { margin-top:0; color:#222; }
   label { font-weight:bold; display:block; margin-top:10px; margin-bottom:5px; }
   textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+    width:100%;
+    padding:10px;
+    border-radius:10px;
+    border:1px solid #ccc;
+    box-sizing:border-box;
     resize: vertical;
-    min-height: 50px;
+    min-height:50px;
     transition: border-color 0.3s;
   }
   textarea:focus { border-color:#a0e7a0; outline:none; }
@@ -70,12 +64,12 @@
 
   /* ===== Botões ===== */
   .action-btn {
-    padding:10px 15px; 
-    border-radius:12px; 
-    border:none; 
-    color:white; 
-    font-weight:bold; 
-    cursor:pointer; 
+    padding:10px 15px;
+    border-radius:12px;
+    border:none;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
     margin-right:10px;
     transition: all 0.3s;
   }
@@ -93,7 +87,7 @@
     cursor:pointer;
     transition: all 0.3s;
   }
-  .add-btn:hover { transform:scale(1.05);}
+  .add-btn:hover { transform:scale(1.05); }
 
   /* ===== Dicas Glow Up ===== */
   .tips { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; }
@@ -180,16 +174,218 @@
     <h2 style="text-align:center;">Vision Board 🌈</h2>
     <p style="text-align:center;">O Vision Board é um quadro visual com imagens e metas que representam seus objetivos. Ajuda a manter foco e motivação no seu glow up!</p>
     <img src="https://i.pinimg.com/236x/ff/aa/11/ffaa1186f2f5a5a6c7e9f2a1e4d3b5c0.jpg" alt="Exemplo de Vision Board">
-    <div class="vision-board" id="visionBoard">
-      <img class="item" src="https://i.pinimg.com/236x/0a/1f/3c/0a1f3c1b3d4c0fca2b9b8f04a9b8f6a3.jpg" draggable="true" ondragstart="drag(event)">
-      <img class="item" src="https://i.pinimg.com/236x/12/4b/55/124b55f3d3c4d1c5c0b3d4c5f4b5d4c1.jpg" draggable="true" ondragstart="drag(event)">
-      <img class="item" src="https://i.pinimg.com/236x/2f/3c/6a/2f3c6a1b3d4c0f1a2b3c4d5f6a7b8c9d.jpg" draggable="true" ondragstart="drag(event)">
-    </div>
+    <div class="vision-board" id="visionBoard"></div>
     <button class="add-btn" onclick="exportVisionBoard()">Exportar Vision Board 📥</button>
   </div>
 
   <!-- Mini Quiz -->
   <div class="quiz">
-    <button onclick="
+    <button onclick="showTip('Você é super focada! Defina horários fixos ⏰')">Foco Total</button>
+    <button onclick="showTip('Você gosta de multitarefas! Use listas para organizar ✨')">Multitask</button>
+  </div>
 
+</div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+// ===== Meses e Planner Original =====
+const months = ["janeiro","fevereiro","marco","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+const plannerContainer = document.getElementById("planner-container");
+
+function createMonthContent(month){
+  const div = document.createElement("div");
+  div.className="month-content";
+  div.id = month;
+
+  div.innerHTML = `
+  <div class="card">
+    <h2>📅 Planner Diário - ${month.charAt(0).toUpperCase()+month.slice(1)}</h2>
+    <label>Manhã</label><textarea class="daily" data-key="${month}_morning"></textarea>
+    <label>Tarde</label><textarea class="daily" data-key="${month}_afternoon"></textarea>
+    <label>Noite</label><textarea class="daily" data-key="${month}_night"></textarea>
+  </div>
+
+  <div class="card">
+    <h2>🗓 Planejamento Semanal</h2>
+    ${["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"].map((d,i)=>`<label>${d}</label><textarea data-key="${month}_week_${i}"></textarea>`).join("")}
+  </div>
+
+  <div class="card">
+    <h2>🔄 Revisão Semanal</h2>
+    <label>O que deu certo</label><textarea data-key="${month}_review_right"></textarea>
+    <label>O que melhorar</label><textarea data-key="${month}_review_improve"></textarea>
+    <label>Reflexão concluída</label><textarea data-key="${month}_review_reflection"></textarea>
+  </div>
+
+  <div class="card">
+    <h2>🏋️ Treino</h2>
+    <label>Exercício 1</label><textarea class="treino small-textarea" data-key="${month}_workout_0"></textarea>
+    <label>Exercício 2</label><textarea class="treino small-textarea" data-key="${month}_workout_1"></textarea>
+    <button class="add-btn" onclick="addWorkout('${month}')">+ Adicionar exercício</button>
+  </div>
+
+  <div class="card">
+    <h2>🧠 Mentalidade & Glow Up</h2>
+    <label>Gratidão</label><textarea class="mentalidade small-textarea" data-key="${month}_mindset_gratitude"></textarea>
+    <label>Aprendizado</label><textarea class="mentalidade small-textarea" data-key="${month}_mindset_learning"></textarea>
+    <label>Reflexão</label><textarea class="mentalidade" data-key="${month}_mindset_reflection"></textarea>
+  </div>
+
+  <div class="card">
+    <h2>🥗 Alimentação</h2>
+    <label>Café da manhã</label><textarea class="alimentacao small-textarea" data-key="${month}_food_breakfast"></textarea>
+    <label>Almoço</label><textarea class="alimentacao small-textarea" data-key="${month}_food_lunch"></textarea>
+    <label>Lanches</label><textarea class="alimentacao small-textarea" data-key="${month}_food_snacks"></textarea>
+    <label>Jantar</label><textarea class="alimentacao small-textarea" data-key="${month}_food_dinner"></textarea>
+    <label>Avaliação semanal</label><textarea class="alimentacao avaliacao small-textarea" data-key="${month}_food_weekly"></textarea>
+    <label>Avaliação mensal</label><textarea class="alimentacao avaliacao small-textarea" data-key="${month}_food_monthly"></textarea>
+  </div>
+
+  <div class="card">
+    <h2>✅ Hábitos</h2>
+    <label>Novo hábito</label><textarea data-key="${month}_habit_0"></textarea>
+    <button class="add-btn" onclick="addHabit('${month}')">+ Adicionar hábito</button>
+  </div>
+
+  <div class="card">
+    <h2>📝 Notas / Diário</h2>
+    <textarea class="notas" style="min-height:150px;" data-key="${month}_notes"></textarea>
+  </div>
+  `;
+  plannerContainer.appendChild(div);
+}
+months.forEach(createMonthContent);
+
+// Navegação meses
+document.querySelectorAll(".month-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".month-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll(".month-content").forEach(m=>m.classList.remove("active"));
+    document.getElementById(btn.dataset.month).classList.add("active");
+  });
+});
+document.getElementById("janeiro").classList.add("active");
+
+// Adicionar treino/hábito
+function addWorkout(month){
+  const container=document.getElementById(month).querySelector("div.card:nth-child(4)");
+  const textarea=document.createElement("textarea");
+  const index = container.querySelectorAll("textarea").length;
+  textarea.className="treino small-textarea";
+  textarea.setAttribute("data-key",`${month}_workout_${index}`);
+  textarea.placeholder="Escreva outro exercício";
+  container.insertBefore(textarea, container.querySelector(".add-btn"));
+  attachAutoSave(textarea);
+}
+function addHabit(month){
+  const container=document.getElementById(month).querySelector("div.card:nth-child(7)");
+  const textarea=document.createElement("textarea");
+  const index = container.querySelectorAll("textarea").length;
+  textarea.setAttribute("data-key",`${month}_habit_${index}`);
+  container.insertBefore(textarea, container.querySelector(".add-btn"));
+  attachAutoSave(textarea);
+}
+
+// Salvamento automático
+function attachAutoSave(textarea){
+  const key = textarea.getAttribute("data-key");
+  if(localStorage.getItem(key)) textarea.value = localStorage.getItem(key);
+  textarea.addEventListener("input", ()=> {
+    localStorage.setItem(key, textarea.value);
+    updateProgress();
+  });
+}
+document.querySelectorAll("textarea").forEach(attachAutoSave);
+
+// Barra de progresso
+function updateProgress(){
+  const dailyTexts = document.querySelectorAll("textarea.daily");
+  let filled=0;
+  dailyTexts.forEach(t=>{ if(t.value.trim()!=="") filled++; });
+  const percent = (filled/dailyTexts.length)*100;
+  document.getElementById("dailyProgress").style.width = percent+"%";
+}
+window.onload = updateProgress;
+
+// Dicas
+function showTip(tip){ document.getElementById("tipDisplay").textContent=tip; }
+
+// DELETE DIA
+document.getElementById("deleteDayBtn").addEventListener("click", function(){
+  const selectors = [
+    "textarea.daily",
+    "textarea.mentalidade",
+    "textarea.alimentacao:not(.avaliacao)",
+    "textarea.notas",
+    "textarea.treino"
+  ];
+  selectors.forEach(sel=>{
+    document.querySelectorAll(sel).forEach(f=>{
+      f.value="";
+      localStorage.removeItem(f.getAttribute("data-key"));
+    });
+  });
+  updateProgress();
+});
+
+// DELETE TUDO
+document.getElementById("deleteAllBtn").addEventListener("click", function(){
+  document.querySelectorAll("textarea").forEach(f=>{
+    f.value="";
+    localStorage.removeItem(f.getAttribute("data-key"));
+  });
+  updateProgress();
+});
+
+// Reset diário automático
+function resetDailyPlanner() {
+  const today = new Date().toDateString();
+  const lastVisit = localStorage.getItem('lastVisit');
+  if(lastVisit!==today){
+    const selectors = [
+      "textarea.daily",
+      "textarea.mentalidade",
+      "textarea.alimentacao:not(.avaliacao)",
+      "textarea.notas",
+      "textarea.treino"
+    ];
+    selectors.forEach(sel=>{
+      document.querySelectorAll(sel).forEach(f=>{
+        f.value="";
+        localStorage.removeItem(f.getAttribute("data-key"));
+      });
+    });
+    localStorage.setItem('lastVisit', today);
+    updateProgress();
+  }
+}
+window.addEventListener('load', resetDailyPlanner);
+
+// Vision Board Drag & Drop
+function allowDrop(ev){ ev.preventDefault(); }
+function drag(ev){ ev.dataTransfer.setData("text", ev.target.src); }
+document.getElementById("visionBoard").addEventListener("dragover", allowDrop);
+document.getElementById("visionBoard").addEventListener("drop", function(ev){
+  ev.preventDefault();
+  const src = ev.dataTransfer.getData("text");
+  const img = document.createElement("img");
+  img.src=src;
+  img.className="item";
+  this.appendChild(img);
+});
+
+// Export Vision Board
+function exportVisionBoard(){
+  const board = document.getElementById("visionBoard");
+  html2canvas(board).then(canvas=>{
+    const link = document.createElement("a");
+    link.download="vision_board.png";
+    link.href=canvas.toDataURL();
+    link.click();
+  });
+}
+</script>
+
+</body>
+</html>
