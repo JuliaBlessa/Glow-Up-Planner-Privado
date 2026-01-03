@@ -103,13 +103,6 @@
   }
   .tip-btn:hover { transform:scale(1.05); background:#ffb6c1; }
 
-  /* ===== Vision Board ===== */
-  .vision-board-section { margin-bottom:30px; }
-  .vision-board-section img { width:100%; max-width:350px; border-radius:12px; display:block; margin:10px auto; }
-  .vision-board { display:flex; flex-wrap:wrap; gap:10px; background:#ffe4e1; padding:10px; border-radius:12px; min-height:200px; }
-  .vision-board img.item { width:80px; cursor:grab; border-radius:10px; transition: all 0.3s; }
-  .vision-board img.item:hover { transform:scale(1.05); }
-
   /* ===== Mini Quiz ===== */
   .quiz { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;}
   .quiz button { flex:1; padding:10px; border-radius:12px; border:none; background:#c3f0ca; cursor:pointer; transition: all 0.3s;}
@@ -169,15 +162,6 @@
 
   <div id="planner-container"></div>
 
-  <!-- Vision Board -->
-  <div class="vision-board-section">
-    <h2 style="text-align:center;">Vision Board 🌈</h2>
-    <p style="text-align:center;">O Vision Board é um quadro visual com imagens e metas que representam seus objetivos. Ajuda a manter foco e motivação no seu glow up!</p>
-    <img src="https://i.pinimg.com/236x/ff/aa/11/ffaa1186f2f5a5a6c7e9f2a1e4d3b5c0.jpg" alt="Exemplo de Vision Board">
-    <div class="vision-board" id="visionBoard"></div>
-    <button class="add-btn" onclick="exportVisionBoard()">Exportar Vision Board 📥</button>
-  </div>
-
   <!-- Mini Quiz -->
   <div class="quiz">
     <button onclick="showTip('Você é super focada! Defina horários fixos ⏰')">Foco Total</button>
@@ -186,7 +170,6 @@
 
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
 // ===== Meses e Planner Original =====
 const months = ["janeiro","fevereiro","marco","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
@@ -361,31 +344,8 @@ function resetDailyPlanner() {
   }
 }
 window.addEventListener('load', resetDailyPlanner);
-
-// Vision Board Drag & Drop
-function allowDrop(ev){ ev.preventDefault(); }
-function drag(ev){ ev.dataTransfer.setData("text", ev.target.src); }
-document.getElementById("visionBoard").addEventListener("dragover", allowDrop);
-document.getElementById("visionBoard").addEventListener("drop", function(ev){
-  ev.preventDefault();
-  const src = ev.dataTransfer.getData("text");
-  const img = document.createElement("img");
-  img.src=src;
-  img.className="item";
-  this.appendChild(img);
-});
-
-// Export Vision Board
-function exportVisionBoard(){
-  const board = document.getElementById("visionBoard");
-  html2canvas(board).then(canvas=>{
-    const link = document.createElement("a");
-    link.download="vision_board.png";
-    link.href=canvas.toDataURL();
-    link.click();
-  });
-}
 </script>
 
 </body>
 </html>
+
