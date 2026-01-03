@@ -2,156 +2,194 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Glow Up Planner 🌸</title>
-<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<title>Glow Up Planner - Rosa Clean</title>
 <style>
-/* ===== Reset e fontes ===== */
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Quicksand',sans-serif;}
-body{background:#FFF8F5;color:#333;}
-h1,h2{font-family:'Poppins',sans-serif;}
-button{cursor:pointer;border:none;border-radius:8px;padding:10px 15px;font-weight:600;transition:0.3s;}
-header{background:#FFDDE1;padding:20px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,0.1);}
-header h1{color:#FF6F91;}
-main{max-width:900px;margin:30px auto;padding:0 15px;}
-section{background:#FFF0F5;margin-bottom:25px;padding:20px;border-radius:15px;box-shadow:0 3px 6px rgba(0,0,0,0.05);transition:all 0.3s ease;}
-section:hover{transform:translateY(-3px);}
+  /* ===== Layout Base ===== */
+  body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: #f8f5f0; /* bege clarinho */
+    color: #222;
+    transition: background 0.3s, color 0.3s;
+  }
+  header {
+    background: linear-gradient(90deg, #ffb6c1, #ffd1dc); /* degradê rosa pastel */
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  h1 { margin:0; font-size:2em; }
+  .container { max-width: 900px; margin: auto; padding: 20px; }
 
-/* ===== Planner ===== */
-.planner input[type="text"]{width:100%;padding:10px;border-radius:8px;border:1px solid #FFC0CB;margin-bottom:10px;}
-.planner button{background:#FFB6C1;color:white;}
-.planner button:hover{background:#FF69B4;}
-.progress-container{background:#FFDCDC;border-radius:20px;overflow:hidden;margin-top:10px;}
-.progress-bar{height:20px;width:0%;background:#FF6F91;border-radius:20px;transition:width 0.3s ease;}
+  /* ===== Meses ===== */
+  .months {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .month-btn {
+    padding: 8px 12px;
+    background: #c3f0ca; /* verde pastel */
+    color: #222;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .month-btn.active { background:#a0e7a0; transform:scale(1.05);}
+  .month-content { display:none; }
+  .month-content.active { display:block; }
 
-/* ===== Dicas ===== */
-.tips{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
-.tip-btn{background:#FFDAC1;color:#333;flex:1 1 45%;text-align:center;}
-.tip-btn:hover{transform:scale(1.05);}
+  /* ===== Cards ===== */
+  .card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s;
+  }
+  .card:hover { transform: translateY(-3px);}
+  h2 { margin-top:0; color:#222; }
+  label { font-weight:bold; display:block; margin-top:10px; margin-bottom:5px; }
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 50px;
+    transition: border-color 0.3s;
+  }
+  textarea:focus { border-color:#a0e7a0; outline:none; }
+  .small-textarea { min-height:35px; }
 
-/* ===== Vision Board ===== */
-.vision-board{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;margin-top:10px;}
-.vision-board img{width:100%;border-radius:10px;cursor:grab;}
-#boardArea{min-height:200px;background:#FFE4E1;border-radius:12px;padding:10px;display:flex;flex-wrap:wrap;gap:10px;}
+  /* ===== Botões ===== */
+  .action-btn {
+    padding:10px 15px; 
+    border-radius:12px; 
+    border:none; 
+    color:white; 
+    font-weight:bold; 
+    cursor:pointer; 
+    margin-right:10px;
+    transition: all 0.3s;
+  }
+  #deleteDayBtn { background:#ff7f7f; } 
+  #deleteDayBtn:hover { transform:scale(1.05);}
+  #deleteAllBtn { background:#ffb6c1; } 
+  #deleteAllBtn:hover { transform:scale(1.05);}
+  .add-btn {
+    padding:5px 10px;
+    margin-top:5px;
+    border:none;
+    border-radius:10px;
+    background:#c3f0ca;
+    color:#222;
+    cursor:pointer;
+    transition: all 0.3s;
+  }
+  .add-btn:hover { transform:scale(1.05);}
 
-/* ===== Quiz ===== */
-.quiz button{background:#C1E1FF;color:#333;flex:1;margin-top:5px;}
+  /* ===== Dicas Glow Up ===== */
+  .tips { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px; }
+  .tip-btn {
+    flex:1 1 30%;
+    background:#ffd1dc;
+    color:#222;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    padding:10px;
+    transition: all 0.3s;
+  }
+  .tip-btn:hover { transform:scale(1.05); background:#ffb6c1; }
 
-/* ===== Export ===== */
-.export-btn{background:#B9FBC0;color:#333;margin-top:10px;}
+  /* ===== Vision Board ===== */
+  .vision-board-section { margin-bottom:30px; }
+  .vision-board-section img { width:100%; max-width:350px; border-radius:12px; display:block; margin:10px auto; }
+  .vision-board { display:flex; flex-wrap:wrap; gap:10px; background:#ffe4e1; padding:10px; border-radius:12px; min-height:200px; }
+  .vision-board img.item { width:80px; cursor:grab; border-radius:10px; transition: all 0.3s; }
+  .vision-board img.item:hover { transform:scale(1.05); }
 
-/* ===== Responsivo ===== */
-@media(max-width:600px){.tips{flex-direction:column;}}
+  /* ===== Mini Quiz ===== */
+  .quiz { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;}
+  .quiz button { flex:1; padding:10px; border-radius:12px; border:none; background:#c3f0ca; cursor:pointer; transition: all 0.3s;}
+  .quiz button:hover { transform:scale(1.05); background:#a0e7a0;}
+
+  /* ===== Barra progresso diário ===== */
+  .progress-container { background:#ffe0e0; border-radius:20px; overflow:hidden; margin-bottom:15px; height:20px; }
+  .progress-bar { height:20px; width:0%; background:#ffb6c1; border-radius:20px; transition:width 0.5s; }
+
+  @media(max-width:600px){ .tips, .quiz { flex-direction:column; } }
 </style>
 </head>
 <body>
 
 <header>
-<h1>Glow Up Planner ✨</h1>
+  <h1>Glow Up Planner ✨</h1>
+  <p>Organize sua vida e evolua todos os dias</p>
 </header>
 
-<main>
+<div class="container">
 
-<!-- ===== Planner ===== -->
-<section class="planner">
-<h2>Seu Planner Diário</h2>
-<input type="text" placeholder="Tarefa 1" id="task1">
-<input type="text" placeholder="Tarefa 2" id="task2">
-<input type="text" placeholder="Tarefa 3" id="task3">
-<button onclick="saveTasks()">Salvar Automaticamente 💾</button>
-<div class="progress-container"><div class="progress-bar" id="progress"></div></div>
-</section>
+  <!-- Barra de Progresso Diário -->
+  <div class="progress-container"><div class="progress-bar" id="dailyProgress"></div></div>
 
-<!-- ===== Dicas ===== -->
-<section>
-<h2>Dicas de Glow Up e Produtividade</h2>
-<div class="tips">
-<button class="tip-btn" onclick="showTip('Beba 2L de água por dia! 💧')">Saúde</button>
-<button class="tip-btn" onclick="showTip('15 min de skincare todos os dias 🌸')">Skincare</button>
-<button class="tip-btn" onclick="showTip('Organize suas tarefas usando seu planner ✨')">Produtividade</button>
-<button class="tip-btn" onclick="showTip('Faça exercícios leves diariamente 🏃‍♀️')">Exercício</button>
-</div>
-<p id="tip-display" style="margin-top:10px;font-weight:600;"></p>
-</section>
+  <!-- Botões DELETE -->
+  <div style="text-align:center; margin-bottom:20px;">
+    <button id="deleteDayBtn" class="action-btn">DELETAR DIA</button>
+    <button id="deleteAllBtn" class="action-btn">DELETAR TUDO</button>
+  </div>
 
-<!-- ===== Vision Board ===== -->
-<section>
-<h2>Vision Board 🌈</h2>
-<p>Um vision board é um quadro visual com imagens e metas que representam seus objetivos!</p>
-<div class="vision-board">
-<img src="https://i.pinimg.com/236x/0a/1f/3c/0a1f3c1b3d4c0fca2b9b8f04a9b8f6a3.jpg" draggable="true" ondragstart="drag(event)">
-<img src="https://i.pinimg.com/236x/12/4b/55/124b55f3d3c4d1c5c0b3d4c5f4b5d4c1.jpg" draggable="true" ondragstart="drag(event)">
-<img src="https://i.pinimg.com/236x/2f/3c/6a/2f3c6a1b3d4c0f1a2b3c4d5f6a7b8c9d.jpg" draggable="true" ondragstart="drag(event)">
-<img src="https://i.pinimg.com/236x/5d/2e/7c/5d2e7c8a3b4c5d6e7f8a9b0c1d2e3f4a.jpg" draggable="true" ondragstart="drag(event)">
-<img src="https://i.pinimg.com/236x/6a/3b/1c/6a3b1c2d3e4f5a6b7c8d9e0f1a2b3c4d.jpg" draggable="true" ondragstart="drag(event)">
-</div>
-<div id="boardArea" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-<button class="export-btn" onclick="exportBoard()">Exportar Vision Board 📥</button>
-</section>
+  <!-- Dicas Glow Up -->
+  <div class="tips">
+    <button class="tip-btn" onclick="showTip('💧 Beba 2L de água diariamente.')">Hidratação</button>
+    <button class="tip-btn" onclick="showTip('🌸 Skincare diário: lave o rosto e use protetor.')">Skincare</button>
+    <button class="tip-btn" onclick="showTip('🍎 Alimentação equilibrada: frutas, proteínas, vegetais.')">Alimentação</button>
+    <button class="tip-btn" onclick="showTip('🏃‍♀️ Exercícios leves diariamente.')">Exercício</button>
+    <button class="tip-btn" onclick="showTip('📅 Hábitos: organize seu dia e evite procrastinação.')">Hábitos</button>
+    <button class="tip-btn" onclick="showTip('📝 Revisão semanal: avalie progresso e objetivos.')">Revisão Semanal</button>
+  </div>
+  <p id="tipDisplay" style="text-align:center;font-weight:bold;margin-bottom:20px;"></p>
 
-<!-- ===== Quiz ===== -->
-<section>
-<h2>Mini Quiz de Produtividade 📝</h2>
-<div class="quiz">
-<button onclick="showTip('Você é super focada! Tente definir horários fixos ⏰')">Foco Total</button>
-<button onclick="showTip('Você gosta de multitarefas! Use listas para organizar ✨')">Multitask</button>
-</div>
-</section>
+  <!-- Meses -->
+  <div class="months">
+    <button class="month-btn active" data-month="janeiro">Janeiro</button>
+    <button class="month-btn" data-month="fevereiro">Fevereiro</button>
+    <button class="month-btn" data-month="marco">Março</button>
+    <button class="month-btn" data-month="abril">Abril</button>
+    <button class="month-btn" data-month="maio">Maio</button>
+    <button class="month-btn" data-month="junho">Junho</button>
+    <button class="month-btn" data-month="julho">Julho</button>
+    <button class="month-btn" data-month="agosto">Agosto</button>
+    <button class="month-btn" data-month="setembro">Setembro</button>
+    <button class="month-btn" data-month="outubro">Outubro</button>
+    <button class="month-btn" data-month="novembro">Novembro</button>
+    <button class="month-btn" data-month="dezembro">Dezembro</button>
+  </div>
 
-</main>
+  <div id="planner-container"></div>
 
-<script>
-// ===== Planner =====
-function saveTasks(){
-localStorage.setItem('task1',document.getElementById('task1').value);
-localStorage.setItem('task2',document.getElementById('task2').value);
-localStorage.setItem('task3',document.getElementById('task3').value);
-updateProgress();
-alert('Tarefas salvas com sucesso! 💾');
-}
-function loadTasks(){
-document.getElementById('task1').value = localStorage.getItem('task1')||'';
-document.getElementById('task2').value = localStorage.getItem('task2')||'';
-document.getElementById('task3').value = localStorage.getItem('task3')||'';
-updateProgress();
-}
-function updateProgress(){
-let completed=0;
-if(document.getElementById('task1').value) completed++;
-if(document.getElementById('task2').value) completed++;
-if(document.getElementById('task3').value) completed++;
-document.getElementById('progress').style.width = (completed/3*100)+'%';
-}
-window.onload=loadTasks;
+  <!-- Vision Board -->
+  <div class="vision-board-section">
+    <h2 style="text-align:center;">Vision Board 🌈</h2>
+    <p style="text-align:center;">O Vision Board é um quadro visual com imagens e metas que representam seus objetivos. Ajuda a manter foco e motivação no seu glow up!</p>
+    <img src="https://i.pinimg.com/236x/ff/aa/11/ffaa1186f2f5a5a6c7e9f2a1e4d3b5c0.jpg" alt="Exemplo de Vision Board">
+    <div class="vision-board" id="visionBoard">
+      <img class="item" src="https://i.pinimg.com/236x/0a/1f/3c/0a1f3c1b3d4c0fca2b9b8f04a9b8f6a3.jpg" draggable="true" ondragstart="drag(event)">
+      <img class="item" src="https://i.pinimg.com/236x/12/4b/55/124b55f3d3c4d1c5c0b3d4c5f4b5d4c1.jpg" draggable="true" ondragstart="drag(event)">
+      <img class="item" src="https://i.pinimg.com/236x/2f/3c/6a/2f3c6a1b3d4c0f1a2b3c4d5f6a7b8c9d.jpg" draggable="true" ondragstart="drag(event)">
+    </div>
+    <button class="add-btn" onclick="exportVisionBoard()">Exportar Vision Board 📥</button>
+  </div>
 
-// ===== Dicas =====
-function showTip(tip){document.getElementById('tip-display').textContent=tip;}
+  <!-- Mini Quiz -->
+  <div class="quiz">
+    <button onclick="
 
-// ===== Vision Board Drag & Drop =====
-function allowDrop(ev){ev.preventDefault();}
-function drag(ev){ev.dataTransfer.setData("text",ev.target.src);}
-function drop(ev){
-ev.preventDefault();
-const src=ev.dataTransfer.getData("text");
-const img=document.createElement("img");
-img.src=src;
-img.style.width="80px";
-ev.target.appendChild(img);
-}
-
-// ===== Export Vision Board =====
-function exportBoard(){
-const board=document.getElementById('boardArea');
-html2canvas(board).then(canvas=>{
-const link=document.createElement('a');
-link.download='vision_board.png';
-link.href=canvas.toDataURL();
-link.click();
-});
-}
-</script>
-
-</body>
-</html>
 
