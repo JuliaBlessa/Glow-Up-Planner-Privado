@@ -2,105 +2,290 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Glow Up Planner</title>
+<title>Glow Up Planner - Rosa Clean</title>
 <style>
-body {
-  margin:0;
-  font-family: Arial, sans-serif;
-  background:#fff;
-  color:#222;
-}
-header {
-  background:#ff5d9d;
-  padding:20px;
-  text-align:center;
-  color:white;
-}
-h1 {margin:0;font-size:2em;}
-.container {
-  max-width:900px;
-  margin:auto;
-  padding:20px;
-}
-.months {
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  justify-content:center;
-  margin-bottom:20px;
-}
-.month-btn {
-  padding:8px 12px;
-  background:#ff5d9d;
-  color:white;
-  border:none;
-  border-radius:12px;
-  cursor:pointer;
-}
-.month-btn.active {background:#e7549f;}
-.month-content {display:none;}
-.month-content.active {display:block;}
-.card {
-  background:white;
-  border-radius:15px;
-  padding:15px;
-  margin-bottom:15px;
-  box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-h2{margin-top:0;color:#222;}
-label{font-weight:bold;display:block;margin-top:10px;margin-bottom:5px;}
-textarea {
-  width:100%;
-  padding:10px;
-  border-radius:10px;
-  border:1px solid #ccc;
-  box-sizing:border-box;
-  resize: vertical;
-  min-height:50px;
-}
-.small-textarea {min-height:35px;}
-.action-btn {
-  padding:10px 15px;
-  border-radius:12px;
-  border:none;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-  margin-right:10px;
-}
-#deleteDayBtn {background:#ff5d5d;}
-#deleteAllBtn {background:#e7549f;}
-.add-btn {
-  padding:5px 10px;
-  margin-top:5px;
-  border:none;
-  border-radius:10px;
-  background:#ff5d9d;
-  color:white;
-  cursor:pointer;
-}
+  body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: #f8f5f0; /* bege clarinho */
+    color: #222; /* texto preto escuro */
+  }
+  header {
+    background: #e7549f; /* rosa escuro */
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+  }
+  h1 { margin:0; font-size:2em; }
+  .container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+  }
+  .months {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .month-btn {
+    padding: 8px 12px;
+    background: #e7549f; /* rosa */
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+  }
+  .month-btn.active { background:#ff5d9d; } /* rosa mais claro */
+  .month-content { display:none; }
+  .month-content.active { display:block; }
+  .card {
+    background: #fff; /* branco */
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+  h2 { margin-top:0; color:#222; }
+  label { font-weight:bold; display:block; margin-top:10px; margin-bottom:5px; }
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 50px;
+  }
+  .small-textarea { min-height:35px; }
+  .action-btn {
+    padding:10px 15px; 
+    border-radius:12px; 
+    border:none; 
+    color:white; 
+    font-weight:bold; 
+    cursor:pointer; 
+    margin-right:10px;
+  }
+  #deleteDayBtn { background:#ff5d5d; } /* vermelho-rosado */
+  #deleteAllBtn { background:#e7549f; } /* rosa escuro */
+  .add-btn {
+    padding:5px 10px;
+    margin-top:5px;
+    border:none;
+    border-radius:10px;
+    background:#ff5d9d;
+    color:white;
+    cursor:pointer;
+  }
 </style>
 </head>
 <body>
+
 <header>
   <h1>Glow Up Planner ✨</h1>
   <p>Organize sua vida e evolua todos os dias</p>
 </header>
+
 <div class="container">
 
-<div style="text-align:center;margin-bottom:20px;">
-  <button id="deleteDayBtn" class="action-btn">DELETAR DIA</button>
-  <button id="deleteAllBtn" class="action-btn">DELETAR TUDO</button>
+  <!-- Botões DELETE -->
+  <div style="text-align:center; margin-bottom:20px;">
+    <button id="deleteDayBtn" class="action-btn">DELETAR DIA</button>
+    <button id="deleteAllBtn" class="action-btn">DELETAR TUDO</button>
+  </div>
+
+  <!-- Meses -->
+  <div class="months">
+    <button class="month-btn active" data-month="janeiro">Janeiro</button>
+    <button class="month-btn" data-month="fevereiro">Fevereiro</button>
+    <button class="month-btn" data-month="marco">Março</button>
+    <button class="month-btn" data-month="abril">Abril</button>
+    <button class="month-btn" data-month="maio">Maio</button>
+    <button class="month-btn" data-month="junho">Junho</button>
+    <button class="month-btn" data-month="julho">Julho</button>
+    <button class="month-btn" data-month="agosto">Agosto</button>
+    <button class="month-btn" data-month="setembro">Setembro</button>
+    <button class="month-btn" data-month="outubro">Outubro</button>
+    <button class="month-btn" data-month="novembro">Novembro</button>
+    <button class="month-btn" data-month="dezembro">Dezembro</button>
+  </div>
+
+  <div id="planner-container"></div>
 </div>
 
-<div class="months">
-  <button class="month-btn active" data-month="janeiro">Janeiro</button>
-  <button class="month-btn" data-month="fevereiro">Fevereiro</button>
-  <button class="month-btn" data-month="marco">Março</button>
-  <button class="month-btn" data-month="abril">Abril</button>
-  <button class="month-btn" data-month="maio">Maio</button>
-  <button class="month-btn" data-month="junho">Junho</button>
-  <button class="month-btn" data-month="julho">Julho</button>
-  <button class="month-btn" data-month="agosto">Agosto</button>
-  <button class="month-btn" data-month="setembro">Setembro</button>
-  <button class="month-btn" data-month=
+<script>
+const months = ["janeiro","fevereiro","marco","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+const plannerContainer = document.getElementById("planner-container");
+
+// Criação do conteúdo de cada mês
+function createMonthContent(month){
+  const div = document.createElement("div");
+  div.className="month-content";
+  div.id = month;
+
+  div.innerHTML = `
+  <!-- Planner Diário -->
+  <div class="card">
+    <h2>📅 Planner Diário - ${month.charAt(0).toUpperCase()+month.slice(1)}</h2>
+    <label>Manhã</label><textarea class="daily" data-key="${month}_morning"></textarea>
+    <label>Tarde</label><textarea class="daily" data-key="${month}_afternoon"></textarea>
+    <label>Noite</label><textarea class="daily" data-key="${month}_night"></textarea>
+  </div>
+
+  <!-- Planejamento Semanal -->
+  <div class="card">
+    <h2>🗓 Planejamento Semanal</h2>
+    ${["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"].map((d,i)=>`<label>${d}</label><textarea data-key="${month}_week_${i}"></textarea>`).join("")}
+  </div>
+
+  <!-- Revisão Semanal -->
+  <div class="card">
+    <h2>🔄 Revisão Semanal</h2>
+    <label>O que deu certo</label><textarea data-key="${month}_review_right"></textarea>
+    <label>O que melhorar</label><textarea data-key="${month}_review_improve"></textarea>
+    <label>Reflexão concluída</label><textarea data-key="${month}_review_reflection"></textarea>
+  </div>
+
+  <!-- Treino -->
+  <div class="card">
+    <h2>🏋️ Treino</h2>
+    <label>Exercício 1</label><textarea class="treino small-textarea" data-key="${month}_workout_0"></textarea>
+    <label>Exercício 2</label><textarea class="treino small-textarea" data-key="${month}_workout_1"></textarea>
+    <button class="add-btn" onclick="addWorkout('${month}')">+ Adicionar exercício</button>
+  </div>
+
+  <!-- Mentalidade & Glow Up -->
+  <div class="card">
+    <h2>🧠 Mentalidade & Glow Up</h2>
+    <label>Gratidão</label><textarea class="mentalidade small-textarea" data-key="${month}_mindset_gratitude"></textarea>
+    <label>Aprendizado</label><textarea class="mentalidade small-textarea" data-key="${month}_mindset_learning"></textarea>
+    <label>Reflexão</label><textarea class="mentalidade" data-key="${month}_mindset_reflection"></textarea>
+  </div>
+
+  <!-- Alimentação -->
+  <div class="card">
+    <h2>🥗 Alimentação</h2>
+    <label>Café da manhã</label><textarea class="alimentacao small-textarea" data-key="${month}_food_breakfast"></textarea>
+    <label>Almoço</label><textarea class="alimentacao small-textarea" data-key="${month}_food_lunch"></textarea>
+    <label>Lanches</label><textarea class="alimentacao small-textarea" data-key="${month}_food_snacks"></textarea>
+    <label>Jantar</label><textarea class="alimentacao small-textarea" data-key="${month}_food_dinner"></textarea>
+    <label>Avaliação semanal</label><textarea class="alimentacao avaliacao small-textarea" data-key="${month}_food_weekly"></textarea>
+    <label>Avaliação mensal</label><textarea class="alimentacao avaliacao small-textarea" data-key="${month}_food_monthly"></textarea>
+  </div>
+
+  <!-- Hábitos -->
+  <div class="card">
+    <h2>✅ Hábitos</h2>
+    <label>Novo hábito</label><textarea data-key="${month}_habit_0"></textarea>
+    <button class="add-btn" onclick="addHabit('${month}')">+ Adicionar hábito</button>
+  </div>
+
+  <!-- Notas / Diário -->
+  <div class="card">
+    <h2>📝 Notas / Diário</h2>
+    <textarea class="notas" style="min-height:150px;" data-key="${month}_notes"></textarea>
+  </div>
+  `;
+  plannerContainer.appendChild(div);
+}
+
+// Criar meses
+months.forEach(createMonthContent);
+
+// Navegação meses
+document.querySelectorAll(".month-btn").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".month-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    document.querySelectorAll(".month-content").forEach(m=>m.classList.remove("active"));
+    document.getElementById(btn.dataset.month).classList.add("active");
+  });
+});
+document.getElementById("janeiro").classList.add("active");
+
+// Adicionar treino/hábito
+function addWorkout(month){
+  const container=document.getElementById(month).querySelector("div.card:nth-child(4)");
+  const textarea=document.createElement("textarea");
+  const index = container.querySelectorAll("textarea").length;
+  textarea.className="treino small-textarea";
+  textarea.setAttribute("data-key",`${month}_workout_${index}`);
+  textarea.placeholder="Escreva outro exercício";
+  container.insertBefore(textarea, container.querySelector(".add-btn"));
+  attachAutoSave(textarea);
+}
+
+function addHabit(month){
+  const container=document.getElementById(month).querySelector("div.card:nth-child(7)");
+  const textarea=document.createElement("textarea");
+  const index = container.querySelectorAll("textarea").length;
+  textarea.setAttribute("data-key",`${month}_habit_${index}`);
+  container.insertBefore(textarea, container.querySelector(".add-btn"));
+  attachAutoSave(textarea);
+}
+
+// Salvamento automático
+function attachAutoSave(textarea){
+  const key = textarea.getAttribute("data-key");
+  if(localStorage.getItem(key)) textarea.value = localStorage.getItem(key);
+  textarea.addEventListener("input", ()=> localStorage.setItem(key, textarea.value));
+}
+
+// Inicializa auto-save em todos os textareas existentes
+document.querySelectorAll("textarea").forEach(attachAutoSave);
+
+// DELETE DIA
+document.getElementById("deleteDayBtn").addEventListener("click", function(){
+  const selectors = [
+    "textarea.daily",
+    "textarea.mentalidade",
+    "textarea.alimentacao:not(.avaliacao)",
+    "textarea.notas",
+    "textarea.treino"
+  ];
+  selectors.forEach(sel=>{
+    document.querySelectorAll(sel).forEach(f=>{
+      f.value="";
+      localStorage.removeItem(f.getAttribute("data-key"));
+    });
+  });
+  alert("Campos do dia apagados ✅");
+});
+
+// DELETE TUDO
+document.getElementById("deleteAllBtn").addEventListener("click", function(){
+  document.querySelectorAll("textarea").forEach(f=>{
+    f.value="";
+    localStorage.removeItem(f.getAttribute("data-key"));
+  });
+  alert("Tudo apagado ✅");
+});
+
+// Reset diário automático
+function resetDailyPlanner() {
+  const today = new Date().toDateString();
+  const lastVisit = localStorage.getItem('lastVisit');
+  if(lastVisit!==today){
+    const selectors = [
+      "textarea.daily",
+      "textarea.mentalidade",
+      "textarea.alimentacao:not(.avaliacao)",
+      "textarea.notas",
+      "textarea.treino"
+    ];
+    selectors.forEach(sel=>{
+      document.querySelectorAll(sel).forEach(f=>{
+        f.value="";
+        localStorage.removeItem(f.getAttribute("data-key"));
+      });
+    });
+    localStorage.setItem('lastVisit', today);
+  }
+}
+window.addEventListener('load', resetDailyPlanner);
+</script>
+
+</body>
+</html>
