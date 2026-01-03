@@ -2,59 +2,105 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Glow Up Planner - Rosa Clean</title>
+<title>Glow Up Planner</title>
 <style>
-  body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background: #f8f5f0;
-    color: #222;
-  }
-  header {
-    background: #e7549f;
-    padding: 20px;
-    text-align: center;
-    color: #fff;
-  }
-  h1 { margin:0; font-size:2em; }
-  .container { max-width: 900px; margin: auto; padding: 20px; }
-  .months { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 20px; }
-  .month-btn { padding: 8px 12px; background: #e7549f; color: white; border: none; border-radius: 12px; cursor: pointer; }
-  .month-btn.active { background:#ff5d9d; }
-  .month-content { display:none; }
-  .month-content.active { display:block; }
-  .card { background: #fff; border-radius: 15px; padding: 15px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-  h2 { margin-top:0; color:#222; }
-  label { font-weight:bold; display:block; margin-top:10px; margin-bottom:5px; }
-  textarea { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #ccc; box-sizing: border-box; resize: vertical; min-height: 50px; }
-  .small-textarea { min-height:35px; }
-  .action-btn { padding:10px 15px; border-radius:12px; border:none; color:white; font-weight:bold; cursor:pointer; margin-right:10px; }
-  #deleteDayBtn { background:#ff5d5d; }
-  #deleteAllBtn { background:#e7549f; }
-  .add-btn { padding:6px 10px; border:none; background:#e7549f; color:#fff; border-radius:10px; cursor:pointer; margin-top:5px; }
+body {
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:#fff;
+  color:#222;
+}
+header {
+  background:#ff5d9d;
+  padding:20px;
+  text-align:center;
+  color:white;
+}
+h1 {margin:0;font-size:2em;}
+.container {
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
+.months {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+  margin-bottom:20px;
+}
+.month-btn {
+  padding:8px 12px;
+  background:#ff5d9d;
+  color:white;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+}
+.month-btn.active {background:#e7549f;}
+.month-content {display:none;}
+.month-content.active {display:block;}
+.card {
+  background:white;
+  border-radius:15px;
+  padding:15px;
+  margin-bottom:15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+h2{margin-top:0;color:#222;}
+label{font-weight:bold;display:block;margin-top:10px;margin-bottom:5px;}
+textarea {
+  width:100%;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  box-sizing:border-box;
+  resize: vertical;
+  min-height:50px;
+}
+.small-textarea {min-height:35px;}
+.action-btn {
+  padding:10px 15px;
+  border-radius:12px;
+  border:none;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  margin-right:10px;
+}
+#deleteDayBtn {background:#ff5d5d;}
+#deleteAllBtn {background:#e7549f;}
+.add-btn {
+  padding:5px 10px;
+  margin-top:5px;
+  border:none;
+  border-radius:10px;
+  background:#ff5d9d;
+  color:white;
+  cursor:pointer;
+}
 </style>
 </head>
 <body>
-
 <header>
   <h1>Glow Up Planner ✨</h1>
   <p>Organize sua vida e evolua todos os dias</p>
 </header>
-
 <div class="container">
 
-  <div style="text-align:center; margin-bottom:20px;">
-    <button id="deleteDayBtn" class="action-btn">DELETAR DIA</button>
-    <button id="deleteAllBtn" class="action-btn">DELETAR TUDO</button>
-  </div>
+<div style="text-align:center;margin-bottom:20px;">
+  <button id="deleteDayBtn" class="action-btn">DELETAR DIA</button>
+  <button id="deleteAllBtn" class="action-btn">DELETAR TUDO</button>
+</div>
 
-  <div class="months">
-    <button class="month-btn active" data-month="janeiro">Janeiro</button>
-    <button class="month-btn" data-month="fevereiro">Fevereiro</button>
-    <button class="month-btn" data-month="marco">Março</button>
-    <button class="month-btn" data-month="abril">Abril</button>
-    <button class="month-btn" data-month="maio">Maio</button>
-    <button class="month-btn" data-month="junho">Junho</button>
-    <button class="month-btn" data-month="julho">Julho</button>
-    <button class="month-btn" data-month="agosto">Agosto</button>
-    <button class="mo
+<div class="months">
+  <button class="month-btn active" data-month="janeiro">Janeiro</button>
+  <button class="month-btn" data-month="fevereiro">Fevereiro</button>
+  <button class="month-btn" data-month="marco">Março</button>
+  <button class="month-btn" data-month="abril">Abril</button>
+  <button class="month-btn" data-month="maio">Maio</button>
+  <button class="month-btn" data-month="junho">Junho</button>
+  <button class="month-btn" data-month="julho">Julho</button>
+  <button class="month-btn" data-month="agosto">Agosto</button>
+  <button class="month-btn" data-month="setembro">Setembro</button>
+  <button class="month-btn" data-month=
