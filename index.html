@@ -2,290 +2,156 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Glow Up Planner - Rosa Clean</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glow Up Planner 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
-  body {
-    margin: 0;
-    font-family: 'Arial', sans-serif;
-    background: #f8f5f0; /* bege clarinho */
-    color: #222; /* texto preto escuro */
-  }
-  header {
-    background: #ffb6c1; /* rosa claro */
-    padding: 20px;
-    text-align: center;
-    color: #fff;
-  }
-  h1 { margin:0; font-size:2em; }
-  .container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-  }
-  .months {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 20px;
-  }
-  .month-btn {
-    padding: 8px 12px;
-    background: #ffb6c1; /* rosa claro */
-    color: white;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-  }
-  .month-btn.active { background:#ffc0cb; } /* rosa mais clarinho */
-  .month-content { display:none; }
-  .month-content.active { display:block; }
-  .card {
-    background: #fff; /* branco */
-    border-radius: 15px;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  }
-  h2 { margin-top:0; color:#222; }
-  label { font-weight:bold; display:block; margin-top:10px; margin-bottom:5px; }
-  textarea {
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-    resize: vertical;
-    min-height: 50px;
-  }
-  .small-textarea { min-height:35px; }
-  .action-btn {
-    padding:10px 15px; 
-    border-radius:12px; 
-    border:none; 
-    color:white; 
-    font-weight:bold; 
-    cursor:pointer; 
-    margin-right:10px;
-  }
-  #deleteDayBtn { background:#ff7f7f; } /* vermelho-rosado */
-  #deleteAllBtn { background:#ffb6c1; } /* rosa claro */
-  .add-btn {
-    padding:5px 10px;
-    margin-top:5px;
-    border:none;
-    border-radius:10px;
-    background:#ffc0cb;
-    color:white;
-    cursor:pointer;
-  }
+/* ===== Reset e fontes ===== */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Quicksand',sans-serif;}
+body{background:#FFF8F5;color:#333;}
+h1,h2{font-family:'Poppins',sans-serif;}
+button{cursor:pointer;border:none;border-radius:8px;padding:10px 15px;font-weight:600;transition:0.3s;}
+header{background:#FFDDE1;padding:20px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,0.1);}
+header h1{color:#FF6F91;}
+main{max-width:900px;margin:30px auto;padding:0 15px;}
+section{background:#FFF0F5;margin-bottom:25px;padding:20px;border-radius:15px;box-shadow:0 3px 6px rgba(0,0,0,0.05);transition:all 0.3s ease;}
+section:hover{transform:translateY(-3px);}
+
+/* ===== Planner ===== */
+.planner input[type="text"]{width:100%;padding:10px;border-radius:8px;border:1px solid #FFC0CB;margin-bottom:10px;}
+.planner button{background:#FFB6C1;color:white;}
+.planner button:hover{background:#FF69B4;}
+.progress-container{background:#FFDCDC;border-radius:20px;overflow:hidden;margin-top:10px;}
+.progress-bar{height:20px;width:0%;background:#FF6F91;border-radius:20px;transition:width 0.3s ease;}
+
+/* ===== Dicas ===== */
+.tips{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px;}
+.tip-btn{background:#FFDAC1;color:#333;flex:1 1 45%;text-align:center;}
+.tip-btn:hover{transform:scale(1.05);}
+
+/* ===== Vision Board ===== */
+.vision-board{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:10px;margin-top:10px;}
+.vision-board img{width:100%;border-radius:10px;cursor:grab;}
+#boardArea{min-height:200px;background:#FFE4E1;border-radius:12px;padding:10px;display:flex;flex-wrap:wrap;gap:10px;}
+
+/* ===== Quiz ===== */
+.quiz button{background:#C1E1FF;color:#333;flex:1;margin-top:5px;}
+
+/* ===== Export ===== */
+.export-btn{background:#B9FBC0;color:#333;margin-top:10px;}
+
+/* ===== Responsivo ===== */
+@media(max-width:600px){.tips{flex-direction:column;}}
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Glow Up Planner ✨</h1>
-  <p>Organize sua vida e evolua todos os dias</p>
+<h1>Glow Up Planner ✨</h1>
 </header>
 
-<div class="container">
+<main>
 
-  <!-- Botões DELETE -->
-  <div style="text-align:center; margin-bottom:20px;">
-    <button id="deleteDayBtn" class="action-btn">DELETAR DIA</button>
-    <button id="deleteAllBtn" class="action-btn">DELETAR TUDO</button>
-  </div>
+<!-- ===== Planner ===== -->
+<section class="planner">
+<h2>Seu Planner Diário</h2>
+<input type="text" placeholder="Tarefa 1" id="task1">
+<input type="text" placeholder="Tarefa 2" id="task2">
+<input type="text" placeholder="Tarefa 3" id="task3">
+<button onclick="saveTasks()">Salvar Automaticamente 💾</button>
+<div class="progress-container"><div class="progress-bar" id="progress"></div></div>
+</section>
 
-  <!-- Meses -->
-  <div class="months">
-    <button class="month-btn active" data-month="janeiro">Janeiro</button>
-    <button class="month-btn" data-month="fevereiro">Fevereiro</button>
-    <button class="month-btn" data-month="marco">Março</button>
-    <button class="month-btn" data-month="abril">Abril</button>
-    <button class="month-btn" data-month="maio">Maio</button>
-    <button class="month-btn" data-month="junho">Junho</button>
-    <button class="month-btn" data-month="julho">Julho</button>
-    <button class="month-btn" data-month="agosto">Agosto</button>
-    <button class="month-btn" data-month="setembro">Setembro</button>
-    <button class="month-btn" data-month="outubro">Outubro</button>
-    <button class="month-btn" data-month="novembro">Novembro</button>
-    <button class="month-btn" data-month="dezembro">Dezembro</button>
-  </div>
-
-  <div id="planner-container"></div>
+<!-- ===== Dicas ===== -->
+<section>
+<h2>Dicas de Glow Up e Produtividade</h2>
+<div class="tips">
+<button class="tip-btn" onclick="showTip('Beba 2L de água por dia! 💧')">Saúde</button>
+<button class="tip-btn" onclick="showTip('15 min de skincare todos os dias 🌸')">Skincare</button>
+<button class="tip-btn" onclick="showTip('Organize suas tarefas usando seu planner ✨')">Produtividade</button>
+<button class="tip-btn" onclick="showTip('Faça exercícios leves diariamente 🏃‍♀️')">Exercício</button>
 </div>
+<p id="tip-display" style="margin-top:10px;font-weight:600;"></p>
+</section>
+
+<!-- ===== Vision Board ===== -->
+<section>
+<h2>Vision Board 🌈</h2>
+<p>Um vision board é um quadro visual com imagens e metas que representam seus objetivos!</p>
+<div class="vision-board">
+<img src="https://i.pinimg.com/236x/0a/1f/3c/0a1f3c1b3d4c0fca2b9b8f04a9b8f6a3.jpg" draggable="true" ondragstart="drag(event)">
+<img src="https://i.pinimg.com/236x/12/4b/55/124b55f3d3c4d1c5c0b3d4c5f4b5d4c1.jpg" draggable="true" ondragstart="drag(event)">
+<img src="https://i.pinimg.com/236x/2f/3c/6a/2f3c6a1b3d4c0f1a2b3c4d5f6a7b8c9d.jpg" draggable="true" ondragstart="drag(event)">
+<img src="https://i.pinimg.com/236x/5d/2e/7c/5d2e7c8a3b4c5d6e7f8a9b0c1d2e3f4a.jpg" draggable="true" ondragstart="drag(event)">
+<img src="https://i.pinimg.com/236x/6a/3b/1c/6a3b1c2d3e4f5a6b7c8d9e0f1a2b3c4d.jpg" draggable="true" ondragstart="drag(event)">
+</div>
+<div id="boardArea" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+<button class="export-btn" onclick="exportBoard()">Exportar Vision Board 📥</button>
+</section>
+
+<!-- ===== Quiz ===== -->
+<section>
+<h2>Mini Quiz de Produtividade 📝</h2>
+<div class="quiz">
+<button onclick="showTip('Você é super focada! Tente definir horários fixos ⏰')">Foco Total</button>
+<button onclick="showTip('Você gosta de multitarefas! Use listas para organizar ✨')">Multitask</button>
+</div>
+</section>
+
+</main>
 
 <script>
-const months = ["janeiro","fevereiro","marco","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
-const plannerContainer = document.getElementById("planner-container");
+// ===== Planner =====
+function saveTasks(){
+localStorage.setItem('task1',document.getElementById('task1').value);
+localStorage.setItem('task2',document.getElementById('task2').value);
+localStorage.setItem('task3',document.getElementById('task3').value);
+updateProgress();
+alert('Tarefas salvas com sucesso! 💾');
+}
+function loadTasks(){
+document.getElementById('task1').value = localStorage.getItem('task1')||'';
+document.getElementById('task2').value = localStorage.getItem('task2')||'';
+document.getElementById('task3').value = localStorage.getItem('task3')||'';
+updateProgress();
+}
+function updateProgress(){
+let completed=0;
+if(document.getElementById('task1').value) completed++;
+if(document.getElementById('task2').value) completed++;
+if(document.getElementById('task3').value) completed++;
+document.getElementById('progress').style.width = (completed/3*100)+'%';
+}
+window.onload=loadTasks;
 
-// Criação do conteúdo de cada mês
-function createMonthContent(month){
-  const div = document.createElement("div");
-  div.className="month-content";
-  div.id = month;
+// ===== Dicas =====
+function showTip(tip){document.getElementById('tip-display').textContent=tip;}
 
-  div.innerHTML = `
-  <!-- Planner Diário -->
-  <div class="card">
-    <h2>📅 Planner Diário - ${month.charAt(0).toUpperCase()+month.slice(1)}</h2>
-    <label>Manhã</label><textarea class="daily" data-key="${month}_morning"></textarea>
-    <label>Tarde</label><textarea class="daily" data-key="${month}_afternoon"></textarea>
-    <label>Noite</label><textarea class="daily" data-key="${month}_night"></textarea>
-  </div>
-
-  <!-- Planejamento Semanal -->
-  <div class="card">
-    <h2>🗓 Planejamento Semanal</h2>
-    ${["Segunda","Terça","Quarta","Quinta","Sexta","Sábado","Domingo"].map((d,i)=>`<label>${d}</label><textarea data-key="${month}_week_${i}"></textarea>`).join("")}
-  </div>
-
-  <!-- Revisão Semanal -->
-  <div class="card">
-    <h2>🔄 Revisão Semanal</h2>
-    <label>O que deu certo</label><textarea data-key="${month}_review_right"></textarea>
-    <label>O que melhorar</label><textarea data-key="${month}_review_improve"></textarea>
-    <label>Reflexão concluída</label><textarea data-key="${month}_review_reflection"></textarea>
-  </div>
-
-  <!-- Treino -->
-  <div class="card">
-    <h2>🏋️ Treino</h2>
-    <label>Exercício 1</label><textarea class="treino small-textarea" data-key="${month}_workout_0"></textarea>
-    <label>Exercício 2</label><textarea class="treino small-textarea" data-key="${month}_workout_1"></textarea>
-    <button class="add-btn" onclick="addWorkout('${month}')">+ Adicionar exercício</button>
-  </div>
-
-  <!-- Mentalidade & Glow Up -->
-  <div class="card">
-    <h2>🧠 Mentalidade & Glow Up</h2>
-    <label>Gratidão</label><textarea class="mentalidade small-textarea" data-key="${month}_mindset_gratitude"></textarea>
-    <label>Aprendizado</label><textarea class="mentalidade small-textarea" data-key="${month}_mindset_learning"></textarea>
-    <label>Reflexão</label><textarea class="mentalidade" data-key="${month}_mindset_reflection"></textarea>
-  </div>
-
-  <!-- Alimentação -->
-  <div class="card">
-    <h2>🥗 Alimentação</h2>
-    <label>Café da manhã</label><textarea class="alimentacao small-textarea" data-key="${month}_food_breakfast"></textarea>
-    <label>Almoço</label><textarea class="alimentacao small-textarea" data-key="${month}_food_lunch"></textarea>
-    <label>Lanches</label><textarea class="alimentacao small-textarea" data-key="${month}_food_snacks"></textarea>
-    <label>Jantar</label><textarea class="alimentacao small-textarea" data-key="${month}_food_dinner"></textarea>
-    <label>Avaliação semanal</label><textarea class="alimentacao avaliacao small-textarea" data-key="${month}_food_weekly"></textarea>
-    <label>Avaliação mensal</label><textarea class="alimentacao avaliacao small-textarea" data-key="${month}_food_monthly"></textarea>
-  </div>
-
-  <!-- Hábitos -->
-  <div class="card">
-    <h2>✅ Hábitos</h2>
-    <label>Novo hábito</label><textarea data-key="${month}_habit_0"></textarea>
-    <button class="add-btn" onclick="addHabit('${month}')">+ Adicionar hábito</button>
-  </div>
-
-  <!-- Notas / Diário -->
-  <div class="card">
-    <h2>📝 Notas / Diário</h2>
-    <textarea class="notas" style="min-height:150px;" data-key="${month}_notes"></textarea>
-  </div>
-  `;
-  plannerContainer.appendChild(div);
+// ===== Vision Board Drag & Drop =====
+function allowDrop(ev){ev.preventDefault();}
+function drag(ev){ev.dataTransfer.setData("text",ev.target.src);}
+function drop(ev){
+ev.preventDefault();
+const src=ev.dataTransfer.getData("text");
+const img=document.createElement("img");
+img.src=src;
+img.style.width="80px";
+ev.target.appendChild(img);
 }
 
-// Criar meses
-months.forEach(createMonthContent);
-
-// Navegação meses
-document.querySelectorAll(".month-btn").forEach(btn=>{
-  btn.addEventListener("click",()=>{
-    document.querySelectorAll(".month-btn").forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");
-    document.querySelectorAll(".month-content").forEach(m=>m.classList.remove("active"));
-    document.getElementById(btn.dataset.month).classList.add("active");
-  });
+// ===== Export Vision Board =====
+function exportBoard(){
+const board=document.getElementById('boardArea');
+html2canvas(board).then(canvas=>{
+const link=document.createElement('a');
+link.download='vision_board.png';
+link.href=canvas.toDataURL();
+link.click();
 });
-document.getElementById("janeiro").classList.add("active");
-
-// Adicionar treino/hábito
-function addWorkout(month){
-  const container=document.getElementById(month).querySelector("div.card:nth-child(4)");
-  const textarea=document.createElement("textarea");
-  const index = container.querySelectorAll("textarea").length;
-  textarea.className="treino small-textarea";
-  textarea.setAttribute("data-key",`${month}_workout_${index}`);
-  textarea.placeholder="Escreva outro exercício";
-  container.insertBefore(textarea, container.querySelector(".add-btn"));
-  attachAutoSave(textarea);
 }
-
-function addHabit(month){
-  const container=document.getElementById(month).querySelector("div.card:nth-child(7)");
-  const textarea=document.createElement("textarea");
-  const index = container.querySelectorAll("textarea").length;
-  textarea.setAttribute("data-key",`${month}_habit_${index}`);
-  container.insertBefore(textarea, container.querySelector(".add-btn"));
-  attachAutoSave(textarea);
-}
-
-// Salvamento automático
-function attachAutoSave(textarea){
-  const key = textarea.getAttribute("data-key");
-  if(localStorage.getItem(key)) textarea.value = localStorage.getItem(key);
-  textarea.addEventListener("input", ()=> localStorage.setItem(key, textarea.value));
-}
-
-// Inicializa auto-save em todos os textareas existentes
-document.querySelectorAll("textarea").forEach(attachAutoSave);
-
-// DELETE DIA
-document.getElementById("deleteDayBtn").addEventListener("click", function(){
-  const selectors = [
-    "textarea.daily",
-    "textarea.mentalidade",
-    "textarea.alimentacao:not(.avaliacao)",
-    "textarea.notas",
-    "textarea.treino"
-  ];
-  selectors.forEach(sel=>{
-    document.querySelectorAll(sel).forEach(f=>{
-      f.value="";
-      localStorage.removeItem(f.getAttribute("data-key"));
-    });
-  });
-  alert("Campos do dia apagados ✅");
-});
-
-// DELETE TUDO
-document.getElementById("deleteAllBtn").addEventListener("click", function(){
-  document.querySelectorAll("textarea").forEach(f=>{
-    f.value="";
-    localStorage.removeItem(f.getAttribute("data-key"));
-  });
-  alert("Tudo apagado ✅");
-});
-
-// Reset diário automático
-function resetDailyPlanner() {
-  const today = new Date().toDateString();
-  const lastVisit = localStorage.getItem('lastVisit');
-  if(lastVisit!==today){
-    const selectors = [
-      "textarea.daily",
-      "textarea.mentalidade",
-      "textarea.alimentacao:not(.avaliacao)",
-      "textarea.notas",
-      "textarea.treino"
-    ];
-    selectors.forEach(sel=>{
-      document.querySelectorAll(sel).forEach(f=>{
-        f.value="";
-        localStorage.removeItem(f.getAttribute("data-key"));
-      });
-    });
-    localStorage.setItem('lastVisit', today);
-  }
-}
-window.addEventListener('load', resetDailyPlanner);
 </script>
 
 </body>
 </html>
+
